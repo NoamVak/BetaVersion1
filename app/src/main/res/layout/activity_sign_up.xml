@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SignUp">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="60">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="90"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/eT_username"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:ems="10"
+                android:hint="Username"
+                android:inputType="textPersonName"
+                android:visibility="invisible" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5" />
+
+            <EditText
+                android:id="@+id/eT_email"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5" />
+
+            <EditText
+                android:id="@+id/eT_password"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5" />
+
+            <EditText
+                android:id="@+id/eT_address"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:ems="10"
+                android:hint="Address"
+                android:inputType="textPostalAddress"
+                android:visibility="invisible" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="30"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="15"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tV"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:text="Don't have an account?" />
+
+            <ToggleButton
+                android:id="@+id/tB"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="15"
+                android:onClick="option"
+                android:text="ToggleButton" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10" />
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/cBstayconnect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stay connected" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="15"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="35" />
+
+            <Button
+                android:id="@+id/btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:onClick="logOrreg"
+                android:text="log in" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="35" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5" />
+
+
+</LinearLayout>
