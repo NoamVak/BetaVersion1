@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -100,5 +101,13 @@ public class Profile extends AppCompatActivity {
     }
 
 
+    public void EditProfile(View view) {
+        Intent si=new Intent(Profile.this,EditProfile.class);
+        startActivity(si);
+    }
 
+    public void postReview(View view) {
+        Intent si=new Intent(Profile.this,PostReview.class);
+        startActivity(si);
+    }
 }

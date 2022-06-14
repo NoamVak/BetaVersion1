@@ -9,9 +9,11 @@ public class Users {
     public String email;
     public int age;
     public String uid;
+    public String bio;
 
 
-    public Users(String name, String image, String address, String phoneNum, String city, String email, int age, String uid){
+
+    public Users(String name, String image, String address, String phoneNum, String city, String email, int age, String uid,String bio){
         this.name=name;
         this.image=image;
         this.address=address;
@@ -20,6 +22,7 @@ public class Users {
         this.email=email;
         this.age=age;
         this.uid=uid;
+        this.bio=bio;
     }
 
     public Users(){
@@ -56,5 +59,9 @@ public class Users {
 
     public String getUid() {
         return uid;
+    }
+
+    public String getBio() {
+        return bio;
     }
 }

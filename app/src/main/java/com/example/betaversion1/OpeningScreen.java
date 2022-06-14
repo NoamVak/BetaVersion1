@@ -1,5 +1,7 @@
 package com.example.betaversion1;
 
+import static com.example.betaversion1.FBref.refAuth;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,9 +17,20 @@ public class OpeningScreen extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
+        if(refAuth.getCurrentUser()!=null) {
+            Intent si = new Intent(OpeningScreen.this, SignUp.class);
+            startActivity(si);
+            finish();
+        }
+
+    }
+
 
     public void SignUp(View view) {
-        Intent si = new Intent(this, SignUp.class);
+        Intent si = new Intent(OpeningScreen.this, SignUp.class);
         startActivity(si);
         finish();
     }

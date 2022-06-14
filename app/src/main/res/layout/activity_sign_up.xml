@@ -71,21 +71,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="5" />
 
-            <EditText
-                android:id="@+id/eT_address"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="5"
-                android:ems="10"
-                android:hint="Address"
-                android:inputType="textPostalAddress"
-                android:visibility="invisible" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="5" />
-
         </LinearLayout>
 
         <Space

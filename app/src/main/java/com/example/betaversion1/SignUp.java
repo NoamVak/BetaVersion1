@@ -28,9 +28,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignUp extends AppCompatActivity {
 
-    EditText eT_username,eT_email,eT_password,eT_address;
+    EditText eT_username,eT_email,eT_password;
     TextView tV;
-    String username,email,password,address,uid;
+    String username,email,password,uid;
     private FirebaseAuth mAuth;
     Users users;
     boolean registered,stayConnect;
@@ -49,7 +49,6 @@ public class SignUp extends AppCompatActivity {
         eT_username=(EditText) findViewById(R.id.eT_username);
         eT_email=(EditText) findViewById(R.id.eT_email);
         eT_password=(EditText) findViewById(R.id.eT_password);
-        eT_address=(EditText) findViewById(R.id.eT_address);
         btn=(Button) findViewById(R.id.btn);
         tB=(ToggleButton)findViewById(R.id.tB);
         cBstayconnect=(CheckBox)findViewById(R.id.cBstayconnect);
@@ -84,7 +83,6 @@ public class SignUp extends AppCompatActivity {
         String str="Already have an account?";
         if(tB.isChecked()){
             eT_username.setVisibility(View.VISIBLE);
-            eT_address.setVisibility(View.VISIBLE);
             tV.setText(str);
             registered=false;
             logoption();
@@ -95,7 +93,6 @@ public class SignUp extends AppCompatActivity {
         String str="Don't have an account?";
         if(!tB.isChecked()){
             eT_username.setVisibility(View.INVISIBLE);
-            eT_address.setVisibility(View.INVISIBLE);
             tV.setText(str);
             registered=true;
             regoption();
@@ -106,62 +103,75 @@ public class SignUp extends AppCompatActivity {
         if(registered){
             email=eT_email.getText().toString();
             password=eT_password.getText().toString();
+            if(email.equals("")||password.equals("")){
+                Toast.makeText(SignUp.this,"Error! : password or email can't be empty",Toast.LENGTH_SHORT).show();
+            }
+            else {
 
-            final ProgressDialog pd=ProgressDialog.show(this,"Login","Connecting...",true);
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            pd.dismiss();
-                            if (task.isSuccessful()) {
-                                SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
-                                SharedPreferences.Editor editor=settings.edit();
-                                editor.putBoolean("stayConnect",cBstayconnect.isChecked());
-                                editor.commit();
-                                Log.d("MainActivity", "signinUserWithEmail:success");
-                                Toast.makeText(SignUp.this, "Login Success", Toast.LENGTH_SHORT).show();
-                                Intent si = new Intent(SignUp.this,MainActivity.class);
-                                startActivity(si);
-                                finish();
-                            } else {
-                                Log.d("MainActivity", "signinUserWithEmail:fail");
-                                Toast.makeText(SignUp.this, "e-mail or password are wrong!", Toast.LENGTH_LONG).show();
+                final ProgressDialog pd = ProgressDialog.show(this, "Login", "Connecting...", true);
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                pd.dismiss();
+                                if (task.isSuccessful()) {
+                                    SharedPreferences settings = getSharedPreferences("PREFS_NAME", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = settings.edit();
+                                    editor.putBoolean("stayConnect", cBstayconnect.isChecked());
+                                    editor.commit();
+                                    Log.d("MainActivity", "signinUserWithEmail:success");
+                                    Toast.makeText(SignUp.this, "Login Success", Toast.LENGTH_SHORT).show();
+                                    Intent si = new Intent(SignUp.this, MainActivity.class);
+                                    startActivity(si);
+                                    finish();
+                                } else {
+                                    Log.d("MainActivity", "signinUserWithEmail:fail");
+                                    Toast.makeText(SignUp.this, "e-mail or password are wrong!", Toast.LENGTH_LONG).show();
+                                }
                             }
-                        }
-                    });
+                        });
+            }
         }
         else{
             email=eT_email.getText().toString();
             password=eT_password.getText().toString();
-            address=eT_address.getText().toString();
             username=eT_username.getText().toString();
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("TAG", "createUserWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                updateUI(user);
-                                uid=mAuth.getUid();
-                                Toast.makeText(SignUp.this,uid,Toast.LENGTH_SHORT).show();
-                                users =new Users(username,null,address,null,null,email,-1,uid);
-                                refUsers.child(uid).setValue(users);
-                                Intent si = new Intent(SignUp.this,MainActivity.class);
-                                startActivity(si);
-                                finish();
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                                Toast.makeText(SignUp.this,"Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                                Toast.makeText(SignUp.this, email+" "+password,Toast.LENGTH_SHORT).show();
-                                updateUI(null);
-                            }
+            if(username.equals("")){
+                Toast.makeText(SignUp.this,"You didn't enter a username",Toast.LENGTH_SHORT).show();
+            }
+            else if(email.equals("")||password.equals("")){
+                Toast.makeText(SignUp.this,"Error! : password or email can't be empty",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d("TAG", "createUserWithEmail:success");
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    updateUI(user);
+                                    uid = mAuth.getUid();
+                                    Toast.makeText(SignUp.this, uid, Toast.LENGTH_SHORT).show();
+                                    users = new Users(username, "Null", "Null", "Null", "Null", email, -1, uid, "Null");
+                                    refUsers.child(uid).setValue(users);
+                                    Intent si = new Intent(SignUp.this, MainActivity.class);
+                                    startActivity(si);
+                                    finish();
 
-                        }
-                    });
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w("TAG", "createUserWithEmail:failure", task.getException());
+                                    Toast.makeText(SignUp.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignUp.this, email + " " + password, Toast.LENGTH_SHORT).show();
+                                    updateUI(null);
+                                }
+
+                            }
+                        });
+            }
 
         }
 
