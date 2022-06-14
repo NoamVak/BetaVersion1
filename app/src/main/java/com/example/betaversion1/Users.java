@@ -1,25 +1,25 @@
 package com.example.betaversion1;
 
 public class Users {
-    public String Name;
-    public String Image;
-    public String Address;
-    public String PhoneNum;
-    public String City;
-    public String Email;
-    public int Age;
-    public String Uid;
+    public String name;
+    public String image;
+    public String address;
+    public String phoneNum;
+    public String city;
+    public String email;
+    public int age;
+    public String uid;
 
 
-    public Users(String Name, String Image, String Address, String PhoneNum, String City, String Email, int Age, String Uid){
-        this.Name=Name;
-        this.Image=Image;
-        this.Address=Address;
-        this.PhoneNum=PhoneNum;
-        this.City=City;
-        this.Email=Email;
-        this.Age=Age;
-        this.Uid=Uid;
+    public Users(String name, String image, String address, String phoneNum, String city, String email, int age, String uid){
+        this.name=name;
+        this.image=image;
+        this.address=address;
+        this.phoneNum=phoneNum;
+        this.city=city;
+        this.email=email;
+        this.age=age;
+        this.uid=uid;
     }
 
     public Users(){
@@ -27,34 +27,34 @@ public class Users {
     }
 
     public int getAge() {
-        return Age;
+        return age;
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public String getCity() {
-        return City;
+        return city;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public String getImage() {
-        return Image;
+        return image;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public String getPhoneNum() {
-        return PhoneNum;
+        return phoneNum;
     }
 
     public String getUid() {
-        return Uid;
+        return uid;
     }
 }

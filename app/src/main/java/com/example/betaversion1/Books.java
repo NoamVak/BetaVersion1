@@ -4,24 +4,24 @@ import java.util.ArrayList;
 
 public class Books {
 
-    public String Name;
-    public String Author;
-    public int Genre;
-    public ArrayList<String> Image;
-    public int Pages;
-    public String Id;
-    public int AgeGroup;
-    public String Info;
+    public String name;
+    public String author;
+    public int genre;
+    public ArrayList<String> image;
+    public int pages;
+    public String id;
+    public int ageGroup;
+    public String info;
 
-    public Books(String Name, String Author, int Genre, ArrayList<String> Image, int Pages, String Id, int AgeGroup, String Info){
-        this.Name=Name;
-        this.Author=Author;
-        this.Genre=Genre;
-        this.Image=Image;
-        this.Pages=Pages;
-        this.Id=Id;
-        this.AgeGroup=AgeGroup;
-        this.Info=Info;
+    public Books(String name, String author, int genre, ArrayList<String> image, int pages, String id, int ageGroup, String info){
+        this.name=name;
+        this.author=author;
+        this.genre=genre;
+        this.image=image;
+        this.pages=pages;
+        this.id=id;
+        this.ageGroup=ageGroup;
+        this.info=info;
     }
 
     public Books(){
@@ -29,34 +29,34 @@ public class Books {
     }
 
     public String getInfo() {
-        return Info;
+        return info;
     }
 
     public ArrayList<String> getImage() {
-        return Image;
+        return image;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public int getAgeGroup() {
-        return AgeGroup;
+        return ageGroup;
     }
 
     public int getGenre() {
-        return Genre;
+        return genre;
     }
 
     public int getPages() {
-        return Pages;
+        return pages;
     }
 
     public String getAuthor() {
-        return Author;
+        return author;
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 }

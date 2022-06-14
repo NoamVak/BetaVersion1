@@ -4,25 +4,25 @@ import java.util.ArrayList;
 
 public class Sales {
 
-    public String Date;
-    public boolean Status;
-    public int Price;
-    public int Condition;
-    public ArrayList<String> Image;
-    public String UserId;
-    public String BookId;
-    public String Info;
+    public String date;
+    public boolean status;
+    public int price;
+    public int condition;
+    public ArrayList<String> image;
+    public String userId;
+    public String bookId;
+    public String info;
 
-    public Sales(String Date, boolean Status, int Price, int Condition, ArrayList<String> Image,
-                 String UserId, String BookId, String Info){
-        this.Date=Date;
-        this.Status=Status;
-        this.Price=Price;
-        this.Condition=Condition;
-        this.Image=Image;
-        this.UserId=UserId;
-        this.BookId=BookId;
-        this.Info=Info;
+    public Sales(String date, boolean status, int price, int condition, ArrayList<String> image,
+                 String userId, String bookId, String info){
+        this.date=date;
+        this.status=status;
+        this.price=price;
+        this.condition=condition;
+        this.image=image;
+        this.userId=userId;
+        this.bookId=bookId;
+        this.info=info;
     }
 
     public Sales(){
@@ -30,30 +30,30 @@ public class Sales {
     }
 
     public String getDate() {
-        return Date;
+        return date;
     }
 
     public ArrayList<String> getImage() {
-        return Image;
+        return image;
     }
 
     public int getCondition() {
-        return Condition;
+        return condition;
     }
 
     public int getPrice() {
-        return Price;
+        return price;
     }
 
     public String getBookId() {
-        return BookId;
+        return bookId;
     }
 
     public String getInfo() {
-        return Info;
+        return info;
     }
 
     public String getUserId() {
-        return UserId;
+        return userId;
     }
 }

@@ -1,6 +1,6 @@
 package com.example.betaversion1;
 
-import static com.example.betaversion1.FBref.reAuth;
+import static com.example.betaversion1.FBref.refAuth;
 import static com.example.betaversion1.FBref.refUsers;
 
 import androidx.annotation.NonNull;
@@ -67,7 +67,7 @@ public class SignUp extends AppCompatActivity {
      * <p>
      */
 
-    /*@Override
+    @Override
     protected void onStart() {
         super.onStart();
         SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
@@ -75,12 +75,10 @@ public class SignUp extends AppCompatActivity {
         Intent si = new Intent(SignUp.this,MainActivity.class);
         if (mAuth.getCurrentUser()!=null && isChecked) {
             stayConnect=true;
-            Toast.makeText(SignUp.this, "Already Logged in", Toast.LENGTH_SHORT).show();
-            si.putExtra("newuser",false);
             startActivity(si);
-
+            finish();
         }
-    }*/
+    }
 
     private void regoption(){
         String str="Already have an account?";
@@ -124,6 +122,7 @@ public class SignUp extends AppCompatActivity {
                                 Toast.makeText(SignUp.this, "Login Success", Toast.LENGTH_SHORT).show();
                                 Intent si = new Intent(SignUp.this,MainActivity.class);
                                 startActivity(si);
+                                finish();
                             } else {
                                 Log.d("MainActivity", "signinUserWithEmail:fail");
                                 Toast.makeText(SignUp.this, "e-mail or password are wrong!", Toast.LENGTH_LONG).show();
@@ -151,6 +150,7 @@ public class SignUp extends AppCompatActivity {
                                 refUsers.child(uid).setValue(users);
                                 Intent si = new Intent(SignUp.this,MainActivity.class);
                                 startActivity(si);
+                                finish();
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("TAG", "createUserWithEmail:failure", task.getException());

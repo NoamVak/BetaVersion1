@@ -19,6 +19,7 @@ public class OpeningScreen extends AppCompatActivity {
     public void SignUp(View view) {
         Intent si = new Intent(this, SignUp.class);
         startActivity(si);
+        finish();
     }
 
     public void Credits(View view) {
