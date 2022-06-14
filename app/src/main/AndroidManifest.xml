@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BetaVersion1">
         <activity
+            android:name=".Shop"
+            android:exported="false" />
+        <activity
+            android:name=".CreateSale"
+            android:exported="false" />
+        <activity
+            android:name=".Profile"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity

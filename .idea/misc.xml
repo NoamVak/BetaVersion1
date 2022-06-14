@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/projects/BetaVersion1/app/src/main/res/layout/activity_create_sale.xml" value="0.2609375" />
         <entry key="..\:/Android/projects/BetaVersion1/app/src/main/res/layout/activity_main.xml" value="0.246875" />
         <entry key="..\:/Android/projects/BetaVersion1/app/src/main/res/layout/activity_opening_screen.xml" value="0.25" />
+        <entry key="..\:/Android/projects/BetaVersion1/app/src/main/res/layout/activity_profile.xml" value="0.2609375" />
+        <entry key="..\:/Android/projects/BetaVersion1/app/src/main/res/layout/activity_shop.xml" value="0.2609375" />
         <entry key="..\:/Android/projects/BetaVersion1/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
+        <entry key="..\:/Android/projects/BetaVersion1/app/src/main/res/menu/main.xml" value="0.2609375" />
       </map>
     </option>
   </component>
