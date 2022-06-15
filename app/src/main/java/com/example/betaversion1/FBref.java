@@ -10,6 +10,7 @@ public class FBref {
 
     public static FirebaseAuth refAuth= FirebaseAuth.getInstance();
 
+    public static DatabaseReference refReviews = FBDB.getReference("Reviews");
     public static DatabaseReference refUsers = FBDB.getReference("Users");
     public static DatabaseReference refBooks = FBDB.getReference("Books");
     public static DatabaseReference refSales = FBDB.getReference("Sales");

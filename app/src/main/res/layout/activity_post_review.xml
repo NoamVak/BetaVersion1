@@ -7,4 +7,179 @@
     android:orientation="vertical"
     tools:context=".PostReview">
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="90">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_BookPic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:srcCompat="@tools:sample/avatars" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:orientation="vertical">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="20" />
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="60"
+                        android:onClick="UploadBookPic"
+                        android:text="upload book pic" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="20" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <EditText
+                android:id="@+id/et_BookName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Book Name"
+                android:inputType="textPersonName" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <EditText
+                android:id="@+id/et_Author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Name of the author" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <EditText
+                android:id="@+id/et_pages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                android:hint="How many pages?"/>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/sp_AgeGroup"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="45" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="10" />
+
+                <Spinner
+                    android:id="@+id/sp_Rating"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="45" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <Spinner
+                android:id="@+id/sp_Genre"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <EditText
+                android:id="@+id/et_ReviewContent"
+                android:layout_width="match_parent"
+                android:lines="8"
+                android:maxLines="10"
+                android:layout_height="150dp"
+                android:ems="10"
+                android:gravity="top|start"
+                android:hint="What do you think about the book?"
+                android:scrollbars="vertical" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="UploadReview"
+                android:text="submit" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5" />
+
 </LinearLayout>
