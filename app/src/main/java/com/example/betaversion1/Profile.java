@@ -28,7 +28,7 @@ public class Profile extends AppCompatActivity {
 
     String str1;
     ImageView profilePic;
-    TextView tvUsername;
+    TextView tvUsername,tvBio;
     FirebaseUser user;
     String uid;
     ArrayList<String> userList=new ArrayList<String>();
@@ -41,7 +41,7 @@ public class Profile extends AppCompatActivity {
 
         profilePic=(ImageView) findViewById(R.id.profilePic);
         tvUsername=(TextView) findViewById(R.id.tvUsername);
-
+        tvBio=(TextView)findViewById(R.id.tvBio);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -63,6 +63,10 @@ public class Profile extends AppCompatActivity {
                 }
                 int index=userList.indexOf(uid);
                 tvUsername.setText(userValues.get(index).getName());
+                String bio=userValues.get(index).getBio();
+                if(!bio.equals("Null"))
+                    tvBio.setText(userValues.get(index).getBio());
+                else tvBio.setText("");
             }
 
             @Override

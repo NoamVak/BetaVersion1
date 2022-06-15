@@ -33,12 +33,24 @@ public class Users {
         return age;
     }
 
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public String getAddress() {
         return address;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getCity() {
         return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getEmail() {
@@ -49,12 +61,24 @@ public class Users {
         return image;
     }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPhoneNum() {
         return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
     public String getUid() {
@@ -63,5 +87,9 @@ public class Users {
 
     public String getBio() {
         return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }
