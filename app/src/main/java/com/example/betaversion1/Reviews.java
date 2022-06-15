@@ -4,13 +4,13 @@ public class Reviews {
     public String uid;
     public Books book;
     public String reviewContent;
-    public int score;
+    public int rating;
 
-    public Reviews (String uid,Books book,String reviewContent,int score){
+    public Reviews (String uid,Books book,String reviewContent,int rating){
         this.uid=uid;
         this.book=book;
         this.reviewContent=reviewContent;
-        this.score=score;
+        this.rating=rating;
     }
 
     public Reviews(){
@@ -26,11 +26,11 @@ public class Reviews {
     }
 
     public int getScore() {
-        return score;
+        return rating;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setScore(int rating) {
+        this.rating = rating;
     }
 
     public String getReviewContent() {
