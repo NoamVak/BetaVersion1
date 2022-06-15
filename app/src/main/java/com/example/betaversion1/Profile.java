@@ -29,6 +29,7 @@ public class Profile extends AppCompatActivity {
     String str1;
     ImageView profilePic;
     TextView tvUsername,tvBio;
+
     FirebaseUser user;
     String uid;
     ArrayList<String> userList=new ArrayList<String>();
