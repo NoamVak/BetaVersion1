@@ -11,9 +11,8 @@ public class Books {
     public int pages;
     public String id;
     public int ageGroup;
-    public String info;
 
-    public Books(String name, String author, int genre, ArrayList<String> image, int pages, String id, int ageGroup, String info){
+    public Books(String name, String author, int genre, ArrayList<String> image, int pages, String id, int ageGroup){
         this.name=name;
         this.author=author;
         this.genre=genre;
@@ -21,15 +20,10 @@ public class Books {
         this.pages=pages;
         this.id=id;
         this.ageGroup=ageGroup;
-        this.info=info;
     }
 
     public Books(){
 
-    }
-
-    public String getInfo() {
-        return info;
     }
 
     public ArrayList<String> getImage() {

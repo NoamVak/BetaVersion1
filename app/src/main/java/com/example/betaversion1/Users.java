@@ -7,20 +7,18 @@ public class Users {
     public String phoneNum;
     public String city;
     public String email;
-    public int age;
     public String uid;
     public String bio;
 
 
 
-    public Users(String name, String image, String address, String phoneNum, String city, String email, int age, String uid,String bio){
+    public Users(String name, String image, String address, String phoneNum, String city, String email, String uid,String bio){
         this.name=name;
         this.image=image;
         this.address=address;
         this.phoneNum=phoneNum;
         this.city=city;
         this.email=email;
-        this.age=age;
         this.uid=uid;
         this.bio=bio;
     }
@@ -29,13 +27,6 @@ public class Users {
 
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     public String getAddress() {
         return address;

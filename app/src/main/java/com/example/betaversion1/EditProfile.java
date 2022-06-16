@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -51,7 +52,7 @@ public class EditProfile extends AppCompatActivity {
     AlertDialog.Builder adb;
     final String[] decision={"Take Photo","Open From Library"};
     FirebaseUser user;
-    String uid,str1,profilePic;
+    String uid,str1,pfpPath;
     ArrayList<String> userList=new ArrayList<String>();
     ArrayList<Users> userValues=new ArrayList<Users>();
     Users updateUser;
@@ -91,12 +92,27 @@ public class EditProfile extends AppCompatActivity {
 
 
         readUserInfo();
-        downloadUserPfp();
+
 
 
     }
 
-    private void downloadUserPfp(){
+    private void downloadUserPfp(String s){
+        StorageReference imageRef= storageReference.child(s);
+        final long ONE_MEGABYTE = 3150* 3150;
+
+        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bMap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                iV_profilePic.setImageBitmap(bMap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(EditProfile.this,"not Working",Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -116,6 +132,10 @@ public class EditProfile extends AppCompatActivity {
                 eT_Username1.setText(userValues.get(index).getName());
                 if(!userValues.get(index).getBio().equals("Null"))
                     eT_Bio.setText(userValues.get(index).getBio());
+                if(!userValues.get(index).getImage().equals("Null")) {
+                    pfpPath = userValues.get(index).getImage();
+                    downloadUserPfp(pfpPath);
+                }
             }
 
             @Override
@@ -248,8 +268,8 @@ public class EditProfile extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         progressDialog.dismiss();
                         Toast.makeText(EditProfile.this, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
-                        profilePic="images/users/" + uid + "-" + "profile";
-                        updateUser.setImage(profilePic);
+                        pfpPath="images/users/" + uid + "-" + "profile";
+                        updateUser.setImage(pfpPath);
                         refUsers.child(uid).setValue(updateUser);
                         finish();
                     }
@@ -295,8 +315,8 @@ public class EditProfile extends AppCompatActivity {
                                 // Dismiss dialog
                                 progressDialog.dismiss();
                                 Toast.makeText(EditProfile.this, "Image Uploaded!!", Toast.LENGTH_SHORT).show();
-                                profilePic="images/users/" + uid + "-" + "profile";
-                                updateUser.setImage(profilePic);
+                                pfpPath="images/users/" + uid + "-" + "profile";
+                                updateUser.setImage(pfpPath);
                                 refUsers.child(uid).setValue(updateUser);
                                 finish();
                             }

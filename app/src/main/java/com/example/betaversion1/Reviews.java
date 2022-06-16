@@ -2,13 +2,13 @@ package com.example.betaversion1;
 
 public class Reviews {
     public String uid;
-    public Books book;
+    public String bookId;
     public String reviewContent;
     public int rating;
 
-    public Reviews (String uid,Books book,String reviewContent,int rating){
+    public Reviews (String uid,String bookId,String reviewContent,int rating){
         this.uid=uid;
-        this.book=book;
+        this.bookId=bookId;
         this.reviewContent=reviewContent;
         this.rating=rating;
     }
@@ -21,8 +21,8 @@ public class Reviews {
         return uid;
     }
 
-    public Books getBook() {
-        return book;
+    public String getBookId() {
+        return bookId;
     }
 
     public int getRating() {

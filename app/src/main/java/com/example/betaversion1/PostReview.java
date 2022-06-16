@@ -205,8 +205,8 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
         }
         else{
             pages=Integer.parseInt(strPages);
-            book=new Books(bookName,author,genreIndex,null,pages,bookId,index,"Null");
-            review=new Reviews(uid,book,reviewContent,index);
+            book=new Books(bookName,author,genreIndex,null,pages,bookId,index);
+            review=new Reviews(uid,bookId,reviewContent,index);
             refBooks.child(String.valueOf(genreIndex)).child(author).setValue(book);
             refReviews.child(String.valueOf(index)).setValue(review);
 
@@ -270,6 +270,8 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
                     progressDialog.setMessage("Uploaded " + (int)progress + "%");
                 }
             });
+
+
         }
 
     }
