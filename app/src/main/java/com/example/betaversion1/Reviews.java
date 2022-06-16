@@ -25,11 +25,11 @@ public class Reviews {
         return book;
     }
 
-    public int getScore() {
+    public int getRating() {
         return rating;
     }
 
-    public void setScore(int rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 

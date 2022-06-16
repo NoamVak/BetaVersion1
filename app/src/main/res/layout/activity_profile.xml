@@ -52,7 +52,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="20"
+            android:layout_weight="15"
             android:orientation="vertical">
 
             <TextView
@@ -88,11 +88,6 @@
                 android:text="Edit profile" />
         </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5" />
-
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
@@ -102,16 +97,10 @@
             android:text="Reviews"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-        <ScrollView
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="40">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
+            android:layout_weight="50" />
 
     </LinearLayout>
 

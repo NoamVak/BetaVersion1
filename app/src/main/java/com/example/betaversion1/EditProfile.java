@@ -10,9 +10,11 @@ import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,6 +43,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class EditProfile extends AppCompatActivity {
 
@@ -51,7 +54,7 @@ public class EditProfile extends AppCompatActivity {
     ArrayList<String> userList=new ArrayList<String>();
     ArrayList<Users> userValues=new ArrayList<Users>();
     Users updateUser;
-    int which;
+    int which,success;
 
     ImageView iV_profilePic;
     EditText eT_Username1,eT_Bio;
@@ -78,7 +81,7 @@ public class EditProfile extends AppCompatActivity {
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-
+        success=0;
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -145,7 +148,7 @@ public class EditProfile extends AppCompatActivity {
                         // Continue only if the File was successfully created
                         if (photoFile != null) {
                             Uri photoURI = FileProvider.getUriForFile(EditProfile.this,
-                                    "com.example.android.fileprovider",
+                                    "com.example1.android.fileprovider",
                                     photoFile);
                             intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                             startActivityForResult(intent, CAMERA_REQUEST);
@@ -216,13 +219,13 @@ public class EditProfile extends AppCompatActivity {
             ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
-            UploadTask uploadTask = storageReference.child("images/users/" + uid+"-"+count).putFile(photoUri);
+            UploadTask uploadTask = storageReference.child("images/users/" + uid+"-"+"profile").putFile(photoUri);
             //StorageReference ref = mStorageRef.child("images/users/" + auth.getCurrentUser().getUid()+"-"+Gallery.count);
-            count++;
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
+                    success=2;
                     Toast.makeText(EditProfile.this, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -243,14 +246,14 @@ public class EditProfile extends AppCompatActivity {
             ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
-            StorageReference ref = storageReference.child("images/users/" +uid+"-"+count);
-            count++;
+            StorageReference ref = storageReference.child("images/users/" +uid+"-"+"profile");
                 ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     // Image uploaded successfully
                                     // Dismiss dialog
                                     progressDialog.dismiss();
+                                    success=2;
                                     Toast.makeText(EditProfile.this, "Image Uploaded!!", Toast.LENGTH_SHORT).show();
                                 }
                             })
