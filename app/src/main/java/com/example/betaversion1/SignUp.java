@@ -154,7 +154,7 @@ public class SignUp extends AppCompatActivity {
                                     updateUI(user);
                                     uid = mAuth.getUid();
                                     Toast.makeText(SignUp.this, uid, Toast.LENGTH_SHORT).show();
-                                    users = new Users(username, "Null", "Null", "Null", "Null", email, uid, "Null");
+                                    users = new Users(username, "",  email, uid, "");
                                     refUsers.child(uid).setValue(users);
                                     Intent si = new Intent(SignUp.this, MainActivity.class);
                                     startActivity(si);

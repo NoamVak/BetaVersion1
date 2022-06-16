@@ -49,7 +49,7 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
     String[] genre={"Genre","Thriller","Horror","Romance","Fantasy","Children book","Fiction","Sci-Fi","Graphic Novel","Manga"};
     String[] ageGroup={"Age Group","Kids","Teens","Adults"};
     Integer [] rating={0,1,2,3,4,5};
-    ArrayList<String> bookImages;
+    ArrayList<String> bookImages=new ArrayList<String>();
     FirebaseUser user;
     String bookId,uid,strPages,bookName,author,reviewContent;
     int genreIndex=0,ageGroupIndex=0,pages,index=0,which;
@@ -81,6 +81,8 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+
+        bookImages.add(" ");
 
         sp_Genre.setOnItemSelectedListener(this);
         sp_AgeGroup.setOnItemSelectedListener(this);
@@ -200,78 +202,98 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
         author=et_Author.getText().toString();
         strPages=et_Pages.getText().toString();
         reviewContent=et_ReviewContent.getText().toString();
-        if(bookName.equals("")||reviewContent.equals("")||author.equals("")||strPages.equals("")||genreIndex==0){
-            Toast.makeText(this,"Error: Fields cannot remain empty",Toast.LENGTH_SHORT).show();
-        }
-        else{
-            pages=Integer.parseInt(strPages);
-            book=new Books(bookName,author,genreIndex,null,pages,bookId,index);
-            review=new Reviews(uid,bookId,reviewContent,index);
-            refBooks.child(String.valueOf(genreIndex)).child(author).setValue(book);
-            refReviews.child(String.valueOf(index)).setValue(review);
-
-        }
-
         if(photoUri!=null&&which==1){
-            ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-            UploadTask uploadTask = storageReference.child("images/books/" + bookId+"-"+EditProfile.count).putFile(photoUri);
-            //StorageReference ref = mStorageRef.child("images/users/" + auth.getCurrentUser().getUid()+"-"+Gallery.count);
-            EditProfile.count++;
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    progressDialog.dismiss();
-                    Toast.makeText(PostReview.this, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(PostReview.this, "Failed to upload.", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                    progressDialog.setMessage("Uploaded " + (int)progress + "%");
-                }
-            });
+            if(bookName.equals("")||reviewContent.equals("")||author.equals("")||strPages.equals("")||genreIndex==0){
+                Toast.makeText(this,"Error: Fields cannot remain empty",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                pages=Integer.parseInt(strPages);
+                bookImages.add("images/books/" + bookId );
+                book=new Books(bookName,author,genreIndex,bookImages,pages,bookId,index);
+                review=new Reviews(uid,bookId,reviewContent,index);
+                ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setTitle("Uploading...");
+                progressDialog.show();
+                UploadTask uploadTask = storageReference.child("images/books/" + bookId ).putFile(photoUri);
+                //StorageReference ref = mStorageRef.child("images/users/" + auth.getCurrentUser().getUid()+"-"+Gallery.count);
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        progressDialog.dismiss();
+                        Toast.makeText(PostReview.this, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
+                        refBooks.child(String.valueOf(genreIndex)).child(author).setValue(book);
+                        refReviews.child(String.valueOf(index)).setValue(review);
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(PostReview.this, "Failed to upload.", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                        progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                    }
+                });
+            }
         }
         if (filePath != null&&which==2) {
-            ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-            StorageReference ref = storageReference.child("images/books/" +bookId+"-"+EditProfile.count);
-            EditProfile.count++;
-            ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // Image uploaded successfully
-                    // Dismiss dialog
-                    progressDialog.dismiss();
-                    Toast.makeText(PostReview.this, "Image Uploaded!!", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e)
-                {
-                    // Error, Image not uploaded
-                    progressDialog.dismiss();
-                    Toast.makeText(PostReview.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                // Progress Listener for loading
-                // percentage on the dialog box
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                    progressDialog.setMessage("Uploaded " + (int)progress + "%");
-                }
-            });
+            if(bookName.equals("")||reviewContent.equals("")||author.equals("")||strPages.equals("")||genreIndex==0){
+                Toast.makeText(this,"Error: Fields cannot remain empty",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                pages=Integer.parseInt(strPages);
+                bookImages.add("images/books/" + bookId );
+                book=new Books(bookName,author,genreIndex,bookImages,pages,bookId,index);
+                review=new Reviews(uid,bookId,reviewContent,index);
+                ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setTitle("Uploading...");
+                progressDialog.show();
+                StorageReference ref = storageReference.child("images/books/" + bookId);
+                ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Image uploaded successfully
+                        // Dismiss dialog
+                        progressDialog.dismiss();
+                        Toast.makeText(PostReview.this, "Image Uploaded!!", Toast.LENGTH_SHORT).show();
+                        refBooks.child(String.valueOf(genreIndex)).child(author).setValue(book);
+                        refReviews.child(String.valueOf(index)).setValue(review);
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Error, Image not uploaded
+                        progressDialog.dismiss();
+                        Toast.makeText(PostReview.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    // Progress Listener for loading
+                    // percentage on the dialog box
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                        progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                    }
+                });
+            }
+        }
 
+        if (filePath == null && photoUri == null) {
+            if (bookName.equals("") || reviewContent.equals("") || author.equals("") || strPages.equals("") || genreIndex == 0) {
+                Toast.makeText(this, "Error: Fields cannot remain empty", Toast.LENGTH_SHORT).show();
+            } else {
+                pages = Integer.parseInt(strPages);
+                book = new Books(bookName, author, genreIndex, bookImages, pages, bookId, index);
+                review = new Reviews(uid, bookId, reviewContent, index);
+                refBooks.child(String.valueOf(genreIndex)).child(author).setValue(book);
+                refReviews.child(String.valueOf(index)).setValue(review);
 
+            }
         }
 
     }

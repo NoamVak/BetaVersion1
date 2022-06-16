@@ -9,12 +9,18 @@ public class Sales {
     public int price;
     public int condition;
     public ArrayList<String> image;
+    public String address;
+    public String phoneNum;
+    public String city;
     public String userId;
     public String bookId;
     public String info;
 
-    public Sales(String date, boolean status, int price, int condition, ArrayList<String> image,
+    public Sales(String date, boolean status, int price, int condition, ArrayList<String> image,String address,String phoneNum,String city,
                  String userId, String bookId, String info){
+        this.address=address;
+        this.phoneNum=phoneNum;
+        this.city=city;
         this.date=date;
         this.status=status;
         this.price=price;
@@ -29,6 +35,29 @@ public class Sales {
 
     }
 
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
     public String getDate() {
         return date;
     }

@@ -248,11 +248,6 @@ public class EditProfile extends AppCompatActivity {
             if(username.equals("")){
                 Toast.makeText(EditProfile.this,"Username can't be null",Toast.LENGTH_SHORT).show();
             }
-            else if(bio.equals("")){
-                updateUser=userValues.get(index);
-                updateUser.setName(username);
-                updateUser.setBio("Null");
-            }
             else{
                 updateUser=userValues.get(index);
                 updateUser.setName(username);
@@ -291,11 +286,6 @@ public class EditProfile extends AppCompatActivity {
         if (filePath != null&&which==2) {
             if(username.equals("")){
                 Toast.makeText(EditProfile.this,"Username can't be null",Toast.LENGTH_SHORT).show();
-            }
-            else if(bio.equals("")){
-                updateUser=userValues.get(index);
-                updateUser.setName(username);
-                updateUser.setBio("Null");
             }
             else{
                 updateUser=userValues.get(index);
