@@ -94,10 +94,11 @@
             android:layout_height="0dp"
             android:layout_weight="5"
             android:gravity="center"
-            android:text="Reviews"
+            android:text="Your Reviews"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <ListView
+            android:id="@+id/lv_userReviews"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="50" />

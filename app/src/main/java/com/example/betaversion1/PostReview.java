@@ -292,6 +292,7 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
                 review = new Reviews(uid, bookId, reviewContent, index);
                 refBooks.child(String.valueOf(genreIndex)).child(author).setValue(book);
                 refReviews.child(String.valueOf(index)).setValue(review);
+                finish();
 
             }
         }

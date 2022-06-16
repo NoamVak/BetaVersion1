@@ -10,13 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="742957bf-b677-4466-b2d5-5ebe21288541" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/CustomAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/custom_lv_layout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/custom_lv_layout_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/CreateSale.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/CreateSale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/EditProfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/EditProfile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/PostReview.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/PostReview.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/Sales.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/Sales.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/Profile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/SignUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/Users.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_profile.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +36,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="resourceFile" />
+        <option value="Class" />
+        <option value="layoutResourceFile" />
       </list>
     </option>
   </component>
@@ -290,7 +295,21 @@
       <option name="project" value="LOCAL" />
       <updated>1655388887450</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Sale Activity finished&#10;Review Activity finished&#10;need to continue">
+      <created>1655399500442</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1655399500442</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Sale Activity finished&#10;Review Activity finished&#10;need to continue">
+      <created>1655399559149</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1655399559149</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -315,6 +334,7 @@
     <MESSAGE value="Camera doesn't work&#10;Gallery works&#10;need to work on Review Section" />
     <MESSAGE value="Camera works&#10;need to continue" />
     <MESSAGE value="need to continue" />
-    <option name="LAST_COMMIT_MESSAGE" value="need to continue" />
+    <MESSAGE value="Sale Activity finished&#10;Review Activity finished&#10;need to continue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sale Activity finished&#10;Review Activity finished&#10;need to continue" />
   </component>
 </project>

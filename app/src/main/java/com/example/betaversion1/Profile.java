@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 public class Profile extends AppCompatActivity {
 
     String str1;
+    ListView lv_userReviews;
     ImageView profilePic;
     TextView tvUsername,tvBio;
     FirebaseUser user;
@@ -49,6 +51,7 @@ public class Profile extends AppCompatActivity {
         profilePic=(ImageView) findViewById(R.id.profilePic);
         tvUsername=(TextView) findViewById(R.id.tvUsername);
         tvBio=(TextView)findViewById(R.id.tvBio);
+        lv_userReviews=(ListView)findViewById(R.id.lv_userReviews);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
