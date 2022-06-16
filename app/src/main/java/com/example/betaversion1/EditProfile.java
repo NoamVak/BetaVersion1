@@ -26,6 +26,7 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,11 +51,11 @@ public class EditProfile extends AppCompatActivity {
     AlertDialog.Builder adb;
     final String[] decision={"Take Photo","Open From Library"};
     FirebaseUser user;
-    String uid,str1;
+    String uid,str1,profilePic;
     ArrayList<String> userList=new ArrayList<String>();
     ArrayList<Users> userValues=new ArrayList<Users>();
     Users updateUser;
-    int which,success;
+    int which;
 
     ImageView iV_profilePic;
     EditText eT_Username1,eT_Bio;
@@ -81,7 +82,6 @@ public class EditProfile extends AppCompatActivity {
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        success=0;
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -91,7 +91,12 @@ public class EditProfile extends AppCompatActivity {
 
 
         readUserInfo();
+        downloadUserPfp();
 
+
+    }
+
+    private void downloadUserPfp(){
 
     }
 
@@ -215,91 +220,127 @@ public class EditProfile extends AppCompatActivity {
     }
 
     public void updateProfile(View view) {
-        if(!(iV_profilePic.getDrawable()==null)&&which==1){
-            ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-            UploadTask uploadTask = storageReference.child("images/users/" + uid+"-"+"profile").putFile(photoUri);
-            //StorageReference ref = mStorageRef.child("images/users/" + auth.getCurrentUser().getUid()+"-"+Gallery.count);
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    progressDialog.dismiss();
-                    success=2;
-                    Toast.makeText(EditProfile.this, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(EditProfile.this, "Failed to upload.", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                    progressDialog.setMessage("Uploaded " + (int)progress + "%");
-                }
-            });
-        }
-        if (filePath != null&&which==2) {
-            ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-            StorageReference ref = storageReference.child("images/users/" +uid+"-"+"profile");
-                ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    // Image uploaded successfully
-                                    // Dismiss dialog
-                                    progressDialog.dismiss();
-                                    success=2;
-                                    Toast.makeText(EditProfile.this, "Image Uploaded!!", Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-
-                            // Error, Image not uploaded
-                            progressDialog.dismiss();
-                            Toast.makeText(EditProfile.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(
-                            new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                // Progress Listener for loading
-                                // percentage on the dialog box
-                                @Override
-                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                                    double progress = (100.0 * taskSnapshot.getBytesTransferred() /
-                                            taskSnapshot.getTotalByteCount());progressDialog.setMessage("Uploaded " + (int)progress + "%");
-                                }
-                            });
-        }
-
-
         username=eT_Username1.getText().toString();
         bio=eT_Bio.getText().toString();
         int index=userList.indexOf(uid);
-        if(username.equals("")){
-            Toast.makeText(EditProfile.this,"Username can't be null",Toast.LENGTH_SHORT).show();
-        }
-        else if(bio.equals("")){
-            updateUser=userValues.get(index);
-            updateUser.setName(username);
-            updateUser.setBio("Null");
-            refUsers.child(uid).setValue(updateUser);
-            //finish();
-        }
-        else{
-            updateUser=userValues.get(index);
-            updateUser.setName(username);
-            updateUser.setBio(bio);
-            refUsers.child(uid).setValue(updateUser);
-            //finish();
 
+        if(photoUri != null && which==1){
+            if(username.equals("")){
+                Toast.makeText(EditProfile.this,"Username can't be null",Toast.LENGTH_SHORT).show();
+            }
+            else if(bio.equals("")){
+                updateUser=userValues.get(index);
+                updateUser.setName(username);
+                updateUser.setBio("Null");
+            }
+            else{
+                updateUser=userValues.get(index);
+                updateUser.setName(username);
+                updateUser.setBio(bio);
+            }
+            if(!username.equals("")) {
+                ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setTitle("Uploading...");
+                progressDialog.show();
+                UploadTask uploadTask = storageReference.child("images/users/" + uid + "-" + "profile").putFile(photoUri);
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        progressDialog.dismiss();
+                        Toast.makeText(EditProfile.this, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
+                        profilePic="images/users/" + uid + "-" + "profile";
+                        updateUser.setImage(profilePic);
+                        refUsers.child(uid).setValue(updateUser);
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(EditProfile.this, "Failed to upload.", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                        progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                    }
+                });
+            }
+        }
+        if (filePath != null&&which==2) {
+            if(username.equals("")){
+                Toast.makeText(EditProfile.this,"Username can't be null",Toast.LENGTH_SHORT).show();
+            }
+            else if(bio.equals("")){
+                updateUser=userValues.get(index);
+                updateUser.setName(username);
+                updateUser.setBio("Null");
+            }
+            else{
+                updateUser=userValues.get(index);
+                updateUser.setName(username);
+                updateUser.setBio(bio);
+
+            }
+            if(!username.equals("")) {
+                ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setTitle("Uploading...");
+                progressDialog.show();
+                StorageReference ref = storageReference.child("images/users/" + uid + "-" + "profile");
+                ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // Image uploaded successfully
+                                // Dismiss dialog
+                                progressDialog.dismiss();
+                                Toast.makeText(EditProfile.this, "Image Uploaded!!", Toast.LENGTH_SHORT).show();
+                                profilePic="images/users/" + uid + "-" + "profile";
+                                updateUser.setImage(profilePic);
+                                refUsers.child(uid).setValue(updateUser);
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                                // Error, Image not uploaded
+                                progressDialog.dismiss();
+                                Toast.makeText(EditProfile.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnProgressListener(
+                                new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                    // Progress Listener for loading
+                                    // percentage on the dialog box
+                                    @Override
+                                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                        double progress = (100.0 * taskSnapshot.getBytesTransferred() /
+                                                taskSnapshot.getTotalByteCount());
+                                        progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                                    }
+                                });
+            }
         }
 
+        if(filePath == null&& photoUri == null) {
+            if (username.equals("")) {
+                Toast.makeText(EditProfile.this, "Username can't be null", Toast.LENGTH_SHORT).show();
+            } else if (bio.equals("")) {
+                updateUser = userValues.get(index);
+                updateUser.setName(username);
+                updateUser.setBio("Null");
+                refUsers.child(uid).setValue(updateUser);
+                finish();
+            } else {
+                updateUser = userValues.get(index);
+                updateUser.setName(username);
+                updateUser.setBio(bio);
+                refUsers.child(uid).setValue(updateUser);
+                finish();
+
+            }
+        }
     }
 }
