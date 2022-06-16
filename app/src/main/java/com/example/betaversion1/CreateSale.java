@@ -94,6 +94,8 @@ public class CreateSale extends AppCompatActivity implements AdapterView.OnItemS
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
+        bookImages.add(" ");
+
         sp_Genre.setOnItemSelectedListener(this);
         sp_AgeGroup.setOnItemSelectedListener(this);
         sp_cond.setOnItemSelectedListener(this);
