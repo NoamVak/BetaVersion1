@@ -34,7 +34,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity  {
     FirebaseUser user;
-    String uid,str1;
+    String uid,str1,bookId;
     ListView lv_AllReviews;
     ArrayList<String> reviewList=new ArrayList<>();
     ArrayList<Reviews> reviewValues=new ArrayList<>();
@@ -60,10 +60,35 @@ public class MainActivity extends AppCompatActivity  {
             uid = user.getUid();
         }
 
+
         readReviewInfo();
         readUserInfo();
         readBookInfo();
 
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+            if(!reviewList.isEmpty()){
+                usernameList.clear();
+                reviewContents.clear();
+                ratings.clear();
+                book_name.clear();
+                for(int i=0;i<reviewList.size();i++){
+                    uid=reviewValues.get(i).getUid();
+                    int uIndex=userList.indexOf(uid);
+                    usernameList.add(userValues.get(uIndex).getName());
+                    reviewContents.add(reviewValues.get(i).getReviewContent());
+                    ratings.add(String.valueOf(reviewValues.get(i).getRating()));
+                    bookId=reviewList.get(i);
+                    int bIndex=bookList.indexOf(bookId);
+                    book_name.add(bookValues.get(bIndex).getName());
+                }
+                CustomAdapter customAdapter=new CustomAdapter(getApplicationContext(),usernameList,book_name,ratings,reviewContents);
+                lv_AllReviews.setAdapter(customAdapter);
+                customAdapter.notifyDataSetChanged();
+            }
     }
 
     private void readReviewInfo(){
@@ -103,6 +128,8 @@ public class MainActivity extends AppCompatActivity  {
                     bookValues.add(bookTmp);
                     bookList.add(str1);
                 }
+
+
             }
 
             @Override

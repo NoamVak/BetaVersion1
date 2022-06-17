@@ -221,7 +221,7 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         progressDialog.dismiss();
                         Toast.makeText(PostReview.this, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
-                        refBooks.child(String.valueOf(genreIndex)).child(author).setValue(book);
+                        refBooks.child(bookId).setValue(book);
                         refReviews.child(String.valueOf(index)).setValue(review);
                         finish();
                     }
@@ -260,7 +260,7 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
                         // Dismiss dialog
                         progressDialog.dismiss();
                         Toast.makeText(PostReview.this, "Image Uploaded!!", Toast.LENGTH_SHORT).show();
-                        refBooks.child(String.valueOf(genreIndex)).child(author).setValue(book);
+                        refBooks.child(bookId).setValue(book);
                         refReviews.child(String.valueOf(index)).setValue(review);
                         finish();
                     }
@@ -288,12 +288,11 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
                 Toast.makeText(this, "Error: Fields cannot remain empty", Toast.LENGTH_SHORT).show();
             } else {
                 pages = Integer.parseInt(strPages);
-                book = new Books(bookName, author, genreIndex, bookImages, pages, bookId, index);
+                book = new Books(bookName, author, genreIndex, bookImages, pages, bookId, ageGroupIndex);
                 review = new Reviews(uid, bookId, reviewContent, index);
-                refBooks.child(String.valueOf(genreIndex)).child(author).setValue(book);
-                refReviews.child(String.valueOf(index)).setValue(review);
+                refBooks.child(bookId).setValue(book);
+                refReviews.child(bookId).setValue(review);
                 finish();
-
             }
         }
 
