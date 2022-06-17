@@ -57,7 +57,7 @@ public class CreateSale extends AppCompatActivity implements AdapterView.OnItemS
     FirebaseUser user;
     Sales newSale;
     Books newBook;
-    ArrayList<String> bookImages=new ArrayList<String>();
+    String bookImages="Null";
 
     Boolean status;
     String date,bookId,uid,strPages,bookName,author,strPrice,phoneNum,city,address,saleInfo;
@@ -93,8 +93,6 @@ public class CreateSale extends AppCompatActivity implements AdapterView.OnItemS
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-
-        bookImages.add(" ");
 
         sp_Genre.setOnItemSelectedListener(this);
         sp_AgeGroup.setOnItemSelectedListener(this);
@@ -229,7 +227,7 @@ public class CreateSale extends AppCompatActivity implements AdapterView.OnItemS
             else {
                 pages = Integer.parseInt(strPages);
                 price = Integer.parseInt(strPrice);
-                bookImages.add("images/books/" + bookId);
+                bookImages="images/books/" + bookId;
                 newBook = new Books(bookName, author, genreIndex, bookImages, pages, bookId, ageGroupIndex);
                 newSale = new Sales(date, status, price, condIndex, bookImages, address, phoneNum, city, uid, bookId, saleInfo);
                 ProgressDialog progressDialog = new ProgressDialog(this);
@@ -268,7 +266,7 @@ public class CreateSale extends AppCompatActivity implements AdapterView.OnItemS
             else {
                 pages = Integer.parseInt(strPages);
                 price = Integer.parseInt(strPrice);
-                bookImages.add("images/books/" + bookId);
+                bookImages="images/books/" + bookId;
                 newBook = new Books(bookName, author, genreIndex, bookImages, pages, bookId, ageGroupIndex);
                 newSale = new Sales(date, status, price, condIndex, bookImages, address, phoneNum, city, uid, bookId, saleInfo);
                 ProgressDialog progressDialog = new ProgressDialog(this);

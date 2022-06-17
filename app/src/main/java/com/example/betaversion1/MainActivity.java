@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,19 +24,23 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bumptech.glide.disklrucache.DiskLruCache;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity  {
     FirebaseUser user;
-    String uid,str1,bookId;
+    String uid,str1,bookId,pfpPath;
     ListView lv_AllReviews;
     ArrayList<String> reviewList=new ArrayList<>();
     ArrayList<Reviews> reviewValues=new ArrayList<>();
@@ -46,6 +52,9 @@ public class MainActivity extends AppCompatActivity  {
     ArrayList<String> book_name=new ArrayList<>();
     ArrayList<String> ratings=new ArrayList<>();
     ArrayList<String> reviewContents=new ArrayList<>();
+
+    FirebaseStorage storage;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +69,9 @@ public class MainActivity extends AppCompatActivity  {
             uid = user.getUid();
         }
 
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
 
         readReviewInfo();
         readUserInfo();
@@ -70,26 +82,45 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onStart(){
         super.onStart();
-            if(!reviewList.isEmpty()){
-                usernameList.clear();
-                reviewContents.clear();
-                ratings.clear();
-                book_name.clear();
-                for(int i=0;i<reviewList.size();i++){
-                    uid=reviewValues.get(i).getUid();
-                    int uIndex=userList.indexOf(uid);
-                    usernameList.add(userValues.get(uIndex).getName());
-                    reviewContents.add(reviewValues.get(i).getReviewContent());
-                    ratings.add(String.valueOf(reviewValues.get(i).getRating()));
-                    bookId=reviewList.get(i);
-                    int bIndex=bookList.indexOf(bookId);
-                    book_name.add(bookValues.get(bIndex).getName());
-                }
-                CustomAdapter customAdapter=new CustomAdapter(getApplicationContext(),usernameList,book_name,ratings,reviewContents);
-                lv_AllReviews.setAdapter(customAdapter);
-                customAdapter.notifyDataSetChanged();
+        if(!reviewList.isEmpty()){
+            usernameList.clear();
+            reviewContents.clear();
+            ratings.clear();
+            book_name.clear();
+            for(int i=0;i<reviewList.size();i++){
+                uid=reviewValues.get(i).getUid();
+                int uIndex=userList.indexOf(uid);
+                usernameList.add(userValues.get(uIndex).getName());
+                reviewContents.add(reviewValues.get(i).getReviewContent());
+                ratings.add(String.valueOf(reviewValues.get(i).getRating()));
+                bookId=reviewList.get(i);
+                int bIndex=bookList.indexOf(bookId);
+                book_name.add(bookValues.get(bIndex).getName());
             }
+            CustomAdapter customAdapter=new CustomAdapter(getApplicationContext(),usernameList,book_name,ratings,reviewContents);
+            lv_AllReviews.setAdapter(customAdapter);
+            customAdapter.notifyDataSetChanged();
+        }
     }
+
+    /*private void downloadUserPfp(String s){
+        StorageReference imageRef= storageReference.child(s);
+        final long ONE_MEGABYTE = 3150* 3150;
+
+        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bMap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                iV_profilePic.setImageBitmap(bMap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(EditProfile.this,"not Working",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }*/
 
     private void readReviewInfo(){
         Query query = refReviews.orderByChild("uid");

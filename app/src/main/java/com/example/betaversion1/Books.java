@@ -7,12 +7,12 @@ public class Books {
     public String name;
     public String author;
     public int genre;
-    public ArrayList<String> image;
+    public String image;
     public int pages;
     public String id;
     public int ageGroup;
 
-    public Books(String name, String author, int genre, ArrayList<String> image, int pages, String id, int ageGroup){
+    public Books(String name, String author, int genre, String image, int pages, String id, int ageGroup){
         this.name=name;
         this.author=author;
         this.genre=genre;
@@ -26,7 +26,7 @@ public class Books {
 
     }
 
-    public ArrayList<String> getImage() {
+    public String getImage() {
         return image;
     }
 

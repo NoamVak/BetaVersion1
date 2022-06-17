@@ -8,7 +8,7 @@ public class Sales {
     public boolean status;
     public int price;
     public int condition;
-    public ArrayList<String> image;
+    public String image;
     public String address;
     public String phoneNum;
     public String city;
@@ -16,7 +16,7 @@ public class Sales {
     public String bookId;
     public String info;
 
-    public Sales(String date, boolean status, int price, int condition, ArrayList<String> image,String address,String phoneNum,String city,
+    public Sales(String date, boolean status, int price, int condition, String image,String address,String phoneNum,String city,
                  String userId, String bookId, String info){
         this.address=address;
         this.phoneNum=phoneNum;
@@ -62,7 +62,7 @@ public class Sales {
         return date;
     }
 
-    public ArrayList<String> getImage() {
+    public String getImage() {
         return image;
     }
 

@@ -49,7 +49,7 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
     String[] genre={"Genre","Thriller","Horror","Romance","Fantasy","Children book","Fiction","Sci-Fi","Graphic Novel","Manga"};
     String[] ageGroup={"Age Group","Kids","Teens","Adults"};
     Integer [] rating={0,1,2,3,4,5};
-    ArrayList<String> bookImages=new ArrayList<String>();
+    String bookImages="Null";
     FirebaseUser user;
     String bookId,uid,strPages,bookName,author,reviewContent;
     int genreIndex=0,ageGroupIndex=0,pages,index=0,which;
@@ -81,8 +81,6 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-
-        bookImages.add(" ");
 
         sp_Genre.setOnItemSelectedListener(this);
         sp_AgeGroup.setOnItemSelectedListener(this);
@@ -208,7 +206,7 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
             }
             else {
                 pages=Integer.parseInt(strPages);
-                bookImages.add("images/books/" + bookId );
+                bookImages="images/books/" + bookId;
                 book=new Books(bookName,author,genreIndex,bookImages,pages,bookId,index);
                 review=new Reviews(uid,bookId,reviewContent,index);
                 ProgressDialog progressDialog = new ProgressDialog(this);
@@ -246,7 +244,7 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
             }
             else {
                 pages=Integer.parseInt(strPages);
-                bookImages.add("images/books/" + bookId );
+                bookImages="images/books/" + bookId;
                 book=new Books(bookName,author,genreIndex,bookImages,pages,bookId,index);
                 review=new Reviews(uid,bookId,reviewContent,index);
                 ProgressDialog progressDialog = new ProgressDialog(this);
