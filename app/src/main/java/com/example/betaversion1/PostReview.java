@@ -220,7 +220,7 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
                         progressDialog.dismiss();
                         Toast.makeText(PostReview.this, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
                         refBooks.child(bookId).setValue(book);
-                        refReviews.child(String.valueOf(index)).setValue(review);
+                        refReviews.child(bookId).setValue(review);
                         finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -259,7 +259,7 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
                         progressDialog.dismiss();
                         Toast.makeText(PostReview.this, "Image Uploaded!!", Toast.LENGTH_SHORT).show();
                         refBooks.child(bookId).setValue(book);
-                        refReviews.child(String.valueOf(index)).setValue(review);
+                        refReviews.child(bookId).setValue(review);
                         finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {

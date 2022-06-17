@@ -52,7 +52,8 @@ public class MainActivity extends AppCompatActivity  {
     ArrayList<String> book_name=new ArrayList<>();
     ArrayList<String> ratings=new ArrayList<>();
     ArrayList<String> reviewContents=new ArrayList<>();
-
+    ArrayList<Bitmap> reviewImage=new ArrayList<>();
+    ArrayList<String> imagePath=new ArrayList<>();
     FirebaseStorage storage;
     StorageReference storageReference;
 
@@ -87,6 +88,8 @@ public class MainActivity extends AppCompatActivity  {
             reviewContents.clear();
             ratings.clear();
             book_name.clear();
+            imagePath.clear();
+            reviewImage.clear();
             for(int i=0;i<reviewList.size();i++){
                 uid=reviewValues.get(i).getUid();
                 int uIndex=userList.indexOf(uid);
@@ -96,14 +99,21 @@ public class MainActivity extends AppCompatActivity  {
                 bookId=reviewList.get(i);
                 int bIndex=bookList.indexOf(bookId);
                 book_name.add(bookValues.get(bIndex).getName());
+                if(bookValues.get(bIndex).getImage().equals("Null")) {
+                    imagePath.add("Null");
+                }
+                else {
+                    pfpPath = bookValues.get(bIndex).getImage();
+                    imagePath.add(pfpPath);
+                }
             }
-            CustomAdapter customAdapter=new CustomAdapter(getApplicationContext(),usernameList,book_name,ratings,reviewContents);
+            CustomAdapter customAdapter=new CustomAdapter(getApplicationContext(),usernameList,book_name,ratings,reviewContents,imagePath);
             lv_AllReviews.setAdapter(customAdapter);
             customAdapter.notifyDataSetChanged();
         }
     }
 
-    /*private void downloadUserPfp(String s){
+    private void downloadUserPfp(String s){
         StorageReference imageRef= storageReference.child(s);
         final long ONE_MEGABYTE = 3150* 3150;
 
@@ -111,16 +121,16 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onSuccess(byte[] bytes) {
                 Bitmap bMap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                iV_profilePic.setImageBitmap(bMap);
+                reviewImage.add(bMap);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditProfile.this,"not Working",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"not Working",Toast.LENGTH_SHORT).show();
             }
         });
 
-    }*/
+    }
 
     private void readReviewInfo(){
         Query query = refReviews.orderByChild("uid");
@@ -159,7 +169,6 @@ public class MainActivity extends AppCompatActivity  {
                     bookValues.add(bookTmp);
                     bookList.add(str1);
                 }
-
 
             }
 
