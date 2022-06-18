@@ -113,24 +113,6 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-    private void downloadUserPfp(String s){
-        StorageReference imageRef= storageReference.child(s);
-        final long ONE_MEGABYTE = 3150* 3150;
-
-        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bMap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                reviewImage.add(bMap);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this,"not Working",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
 
     private void readReviewInfo(){
         Query query = refReviews.orderByChild("uid");
