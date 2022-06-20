@@ -40,7 +40,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity  {
     FirebaseUser user;
-    String uid,str1,bookId,pfpPath;
+    String uid,str1,bookId,bookImage;
     ListView lv_AllReviews;
     ArrayList<String> reviewList=new ArrayList<>();
     ArrayList<Reviews> reviewValues=new ArrayList<>();
@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity  {
     ArrayList<String> book_name=new ArrayList<>();
     ArrayList<String> ratings=new ArrayList<>();
     ArrayList<String> reviewContents=new ArrayList<>();
-    ArrayList<Bitmap> reviewImage=new ArrayList<>();
     ArrayList<String> imagePath=new ArrayList<>();
     FirebaseStorage storage;
     StorageReference storageReference;
@@ -89,7 +88,6 @@ public class MainActivity extends AppCompatActivity  {
             ratings.clear();
             book_name.clear();
             imagePath.clear();
-            reviewImage.clear();
             for(int i=0;i<reviewList.size();i++){
                 uid=reviewValues.get(i).getUid();
                 int uIndex=userList.indexOf(uid);
@@ -103,8 +101,8 @@ public class MainActivity extends AppCompatActivity  {
                     imagePath.add("Null");
                 }
                 else {
-                    pfpPath = bookValues.get(bIndex).getImage();
-                    imagePath.add(pfpPath);
+                    bookImage = bookValues.get(bIndex).getImage();
+                    imagePath.add(bookImage);
                 }
             }
             CustomAdapter customAdapter=new CustomAdapter(getApplicationContext(),usernameList,book_name,ratings,reviewContents,imagePath);
@@ -135,7 +133,6 @@ public class MainActivity extends AppCompatActivity  {
             }
         };
         query.addValueEventListener(VEL);
-
 
     }
 

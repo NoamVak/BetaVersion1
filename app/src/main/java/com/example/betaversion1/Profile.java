@@ -1,6 +1,8 @@
 package com.example.betaversion1;
 
 import static com.example.betaversion1.FBref.refAuth;
+import static com.example.betaversion1.FBref.refBooks;
+import static com.example.betaversion1.FBref.refReviews;
 import static com.example.betaversion1.FBref.refUsers;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -33,14 +36,21 @@ import java.util.ArrayList;
 
 public class Profile extends AppCompatActivity {
 
-    String str1;
     ListView lv_userReviews;
     ImageView profilePic;
     TextView tvUsername,tvBio;
     FirebaseUser user;
-    String uid,pfpPath;
+    String str1,uid,username,pfpPath,bookId,bookImage;
+    ArrayList<String> reviewList=new ArrayList<>();
+    ArrayList<Reviews> reviewValues=new ArrayList<>();
+    ArrayList<String> bookList=new ArrayList<>();
+    ArrayList<Books> bookValues= new ArrayList<>();
     ArrayList<String> userList=new ArrayList<String>();
     ArrayList<Users> userValues=new ArrayList<Users>();
+    ArrayList<String> book_name=new ArrayList<>();
+    ArrayList<String> ratings=new ArrayList<>();
+    ArrayList<String> reviewContents=new ArrayList<>();
+    ArrayList<String> imagePath=new ArrayList<>();
     FirebaseStorage storage;
 
     @Override
@@ -61,9 +71,85 @@ public class Profile extends AppCompatActivity {
 
         storage= FirebaseStorage.getInstance();
 
+        readReviewInfo();
         readUserInfo();
+        readBookInfo();
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        if(!reviewList.isEmpty()){
+            reviewContents.clear();
+            ratings.clear();
+            book_name.clear();
+            imagePath.clear();
+            for(int i=0;i<reviewList.size();i++){
+                reviewContents.add(reviewValues.get(i).getReviewContent());
+                ratings.add(String.valueOf(reviewValues.get(i).getRating()));
+                bookId=reviewList.get(i);
+                int bIndex=bookList.indexOf(bookId);
+                book_name.add(bookValues.get(bIndex).getName());
+                if(bookValues.get(bIndex).getImage().equals("Null")) {
+                    imagePath.add("Null");
+                }
+                else {
+                    bookImage = bookValues.get(bIndex).getImage();
+                    imagePath.add(bookImage);
+                }
+            }
+            CustomAdapterProf customAdapter=new CustomAdapterProf(getApplicationContext(),username,book_name,ratings,reviewContents,imagePath);
+            lv_userReviews.setAdapter(customAdapter);
+            customAdapter.notifyDataSetChanged();
+        }
+
+    }
 
 
+
+    private void readReviewInfo(){
+        Query query = refReviews.orderByChild("uid").equalTo(uid);
+        ValueEventListener VEL= new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dS) {
+                reviewList.clear();
+                reviewValues.clear();
+                for (DataSnapshot data : dS.getChildren()) {
+                    str1=(String) data.getKey();
+                    Reviews reviewTmp = data.getValue(Reviews.class);
+                    reviewValues.add(reviewTmp);
+                    reviewList.add(str1);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        query.addValueEventListener(VEL);
+
+    }
+    private void readBookInfo(){
+        ValueEventListener bookListener=new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dS) {
+                bookList.clear();
+                bookValues.clear();
+                for (DataSnapshot data : dS.getChildren()) {
+                    str1=(String) data.getKey();
+                    Books bookTmp = data.getValue(Books.class);
+                    bookValues.add(bookTmp);
+                    bookList.add(str1);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        refBooks.addValueEventListener(bookListener);
     }
 
     private void readUserInfo(){
@@ -79,7 +165,8 @@ public class Profile extends AppCompatActivity {
                     userList.add(str1);
                 }
                 int index=userList.indexOf(uid);
-                tvUsername.setText(userValues.get(index).getName());
+                username=userValues.get(index).getName();
+                tvUsername.setText(username);
                 String bio=userValues.get(index).getBio();
                 if(!bio.equals("Null"))
                     tvBio.setText(userValues.get(index).getBio());
