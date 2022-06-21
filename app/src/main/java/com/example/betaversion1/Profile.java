@@ -124,8 +124,8 @@ public class Profile extends AppCompatActivity {
             }
         };
         query.addValueEventListener(VEL);
-
     }
+
     private void readBookInfo(){
         ValueEventListener bookListener=new ValueEventListener() {
             @Override

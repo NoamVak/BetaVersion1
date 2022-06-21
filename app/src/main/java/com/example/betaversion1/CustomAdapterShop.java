@@ -82,13 +82,13 @@ public class CustomAdapterShop extends BaseAdapter {
         saleLoc_text.setText("Where- "+location.get(i));
         date_text.setText("Published- "+dateList.get(i));
         if(!hasImage.get(i).equals("Null")) {
-            StorageReference imageRef= storageReference.child(hasImage.get(i));
-            final long ONE_MEGABYTE = 3150* 3150;
+            StorageReference imageRef = storageReference.child(hasImage.get(i));
+            final long ONE_MEGABYTE = 3150 * 3150;
 
             imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
-                    bMap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                    bMap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     bookPic_iv.setImageBitmap(bMap);
                 }
             }).addOnFailureListener(new OnFailureListener() {

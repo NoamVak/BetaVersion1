@@ -62,11 +62,11 @@ public class Shop extends AppCompatActivity {
                     location.add(saleValues.get(i).getCity()+" - "+saleValues.get(i).getAddress());
                 else location.add(saleValues.get(i).getCity());
                 dateList.add(saleValues.get(i).getDate());
-                if(saleValues.get(i).getImage().equals("Null")) {
+                if(bookValues.get(bIndex).getImage().equals("Null")) {
                     hasImage.add("Null");
                 }
                 else {
-                    image=saleValues.get(i).getImage();
+                    image=bookValues.get(bIndex).getImage();
                     hasImage.add(image);
                 }
             }

@@ -233,9 +233,7 @@ public class CreateSale extends AppCompatActivity implements AdapterView.OnItemS
                 ProgressDialog progressDialog = new ProgressDialog(this);
                 progressDialog.setTitle("Uploading...");
                 progressDialog.show();
-                UploadTask uploadTask = storageReference.child("images/books/" + bookId + "-" + EditProfile.count).putFile(photoUri);
-                //StorageReference ref = mStorageRef.child("images/users/" + auth.getCurrentUser().getUid()+"-"+Gallery.count);
-                EditProfile.count++;
+                UploadTask uploadTask = storageReference.child("images/books/" + bookId ).putFile(photoUri);
                 uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -272,8 +270,7 @@ public class CreateSale extends AppCompatActivity implements AdapterView.OnItemS
                 ProgressDialog progressDialog = new ProgressDialog(this);
                 progressDialog.setTitle("Uploading...");
                 progressDialog.show();
-                StorageReference ref = storageReference.child("images/books/" + bookId + "-" + EditProfile.count);
-                EditProfile.count++;
+                StorageReference ref = storageReference.child("images/books/" + bookId);
                 ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
