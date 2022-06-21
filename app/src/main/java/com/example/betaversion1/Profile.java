@@ -71,14 +71,12 @@ public class Profile extends AppCompatActivity {
 
         storage= FirebaseStorage.getInstance();
 
-        readReviewInfo();
+
         readUserInfo();
-        readBookInfo();
+
     }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
+    private void displayUserReviews(){
         if(!reviewList.isEmpty()){
             reviewContents.clear();
             ratings.clear();
@@ -105,8 +103,6 @@ public class Profile extends AppCompatActivity {
 
     }
 
-
-
     private void readReviewInfo(){
         Query query = refReviews.orderByChild("uid").equalTo(uid);
         ValueEventListener VEL= new ValueEventListener() {
@@ -120,6 +116,7 @@ public class Profile extends AppCompatActivity {
                     reviewValues.add(reviewTmp);
                     reviewList.add(str1);
                 }
+                displayUserReviews();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -141,7 +138,7 @@ public class Profile extends AppCompatActivity {
                     bookValues.add(bookTmp);
                     bookList.add(str1);
                 }
-
+                readReviewInfo();
             }
 
             @Override
@@ -175,6 +172,7 @@ public class Profile extends AppCompatActivity {
                     pfpPath = userValues.get(index).getImage();
                     downloadUserPfp(pfpPath);
                 }
+                readBookInfo();
 
             }
 

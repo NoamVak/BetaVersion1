@@ -39,7 +39,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity  {
-    FirebaseUser user;
     String uid,str1,bookId,bookImage;
     ListView lv_AllReviews;
     ArrayList<String> reviewList=new ArrayList<>();
@@ -53,8 +52,6 @@ public class MainActivity extends AppCompatActivity  {
     ArrayList<String> ratings=new ArrayList<>();
     ArrayList<String> reviewContents=new ArrayList<>();
     ArrayList<String> imagePath=new ArrayList<>();
-    FirebaseStorage storage;
-    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,25 +60,13 @@ public class MainActivity extends AppCompatActivity  {
 
         lv_AllReviews=(ListView)findViewById(R.id.lv_AllReviews);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // Name, getEmail or etc
-            uid = user.getUid();
-        }
 
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
-
-
-        readReviewInfo();
         readUserInfo();
-        readBookInfo();
+
 
     }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
+    private void displayReviews(){
         if(!reviewList.isEmpty()){
             usernameList.clear();
             reviewContents.clear();
@@ -125,7 +110,7 @@ public class MainActivity extends AppCompatActivity  {
                     reviewValues.add(reviewTmp);
                     reviewList.add(str1);
                 }
-
+                displayReviews();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -148,7 +133,7 @@ public class MainActivity extends AppCompatActivity  {
                     bookValues.add(bookTmp);
                     bookList.add(str1);
                 }
-
+                readReviewInfo();
             }
 
             @Override
@@ -171,6 +156,7 @@ public class MainActivity extends AppCompatActivity  {
                     userValues.add(userTmp);
                     userList.add(str1);
                 }
+                readBookInfo();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

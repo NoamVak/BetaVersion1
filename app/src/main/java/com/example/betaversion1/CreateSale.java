@@ -241,7 +241,7 @@ public class CreateSale extends AppCompatActivity implements AdapterView.OnItemS
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         progressDialog.dismiss();
                         refBooks.child(bookId).setValue(newBook);
-                        refSales.child(String.valueOf(status)).child(date).setValue(newSale);
+                        refSales.child(date).setValue(newSale);
                         finish();
                         Toast.makeText(CreateSale.this, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
                     }
@@ -281,7 +281,7 @@ public class CreateSale extends AppCompatActivity implements AdapterView.OnItemS
                         // Dismiss dialog
                         progressDialog.dismiss();
                         refBooks.child(bookId).setValue(newBook);
-                        refSales.child(String.valueOf(status)).child(date).setValue(newSale);
+                        refSales.child(date).setValue(newSale);
                         Toast.makeText(CreateSale.this, "Image Uploaded!!", Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -312,7 +312,7 @@ public class CreateSale extends AppCompatActivity implements AdapterView.OnItemS
                 newBook = new Books(bookName, author, genreIndex, bookImages, pages, bookId, ageGroupIndex);
                 newSale = new Sales(date, status, price, condIndex, bookImages, address, phoneNum, city, uid, bookId, saleInfo);
                 refBooks.child(bookId).setValue(newBook);
-                refSales.child(String.valueOf(status)).child(date).setValue(newSale);
+                refSales.child(date).setValue(newSale);
                 finish();
             }
         }

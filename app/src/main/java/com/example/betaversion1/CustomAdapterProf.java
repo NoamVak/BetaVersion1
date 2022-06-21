@@ -62,8 +62,8 @@ public class CustomAdapterProf extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view= inflater.inflate(R.layout.custom_lv_layout,null);
-        TextView tv_username=(TextView) view.findViewById(R.id.tv_username);
-        TextView tv_bookName=(TextView) view.findViewById(R.id.tv_bookName);
+        TextView tv_username=(TextView) view.findViewById(R.id.bookName_text);
+        TextView tv_bookName=(TextView) view.findViewById(R.id.pages_text);
         TextView tv_Rating=(TextView) view.findViewById(R.id.tv_Rating);
         TextView tv_ReviewContent=(TextView) view.findViewById(R.id.tv_ReviewContent);
         ImageView iv_reviewPic=(ImageView) view.findViewById(R.id.iv_reviewPic);

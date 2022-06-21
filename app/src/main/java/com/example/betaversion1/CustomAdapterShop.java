@@ -17,65 +17,70 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class CustomAdapter extends BaseAdapter {
+public class CustomAdapterShop extends BaseAdapter {
     Context context;
-    ArrayList<String> username=new ArrayList<>();
     ArrayList<String> book_name=new ArrayList<>();
-    ArrayList<String> ratings=new ArrayList<>();
-    ArrayList<String> reviewContents= new ArrayList<>();
+    ArrayList<Integer> pages=new ArrayList<>();
+    ArrayList<Integer> conditionList= new ArrayList<>();
+    String[] condition={"Condition","Brand New","Like New","Used","Old"};
+    ArrayList<String> location=new ArrayList<>();
+    ArrayList<String> dateList=new ArrayList<>();
     ArrayList<String> hasImage= new ArrayList<>();
     Bitmap bMap;
     FirebaseStorage storage;
     StorageReference storageReference;
     LayoutInflater inflater;
 
-    public CustomAdapter(Context applicationContext, ArrayList<String> username,ArrayList<String> book_name,ArrayList<String> ratings
-            ,ArrayList<String> reviewContents,ArrayList<String> hasImage){
+    public CustomAdapterShop(Context applicationContext,ArrayList<String> book_name,ArrayList<Integer> pages,ArrayList<Integer> conditionList
+            ,ArrayList<String> location, ArrayList<String> dateList,ArrayList<String> hasImage){
         this.context=applicationContext;
-        this.username=username;
         this.book_name=book_name;
-        this.ratings=ratings;
-        this.reviewContents=reviewContents;
+        this.pages=pages;
+        this.conditionList=conditionList;
+        this.location=location;
+        this.dateList=dateList;
         this.hasImage=hasImage;
         inflater= (LayoutInflater.from(applicationContext));
     }
 
+
     @Override
-    public int getCount(){
-        return username.size();
+    public int getCount() {
+        return book_name.size();
     }
 
     @Override
-    public Object getItem(int i){
+    public Object getItem(int i) {
         return null;
     }
 
     @Override
-    public long getItemId(int i){
+    public long getItemId(int i) {
         return 0;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view= inflater.inflate(R.layout.custom_lv_layout,null);
-        TextView tv_username=(TextView) view.findViewById(R.id.bookName_text);
-        TextView tv_bookName=(TextView) view.findViewById(R.id.pages_text);
-        TextView tv_Rating=(TextView) view.findViewById(R.id.tv_Rating);
-        TextView tv_ReviewContent=(TextView) view.findViewById(R.id.tv_ReviewContent);
-        ImageView iv_reviewPic=(ImageView) view.findViewById(R.id.iv_reviewPic);
+        view= inflater.inflate(R.layout.custom_lv_layout2,null);
+        TextView bookName_text=(TextView) view.findViewById(R.id.bookName_text);
+        TextView pages_text=(TextView) view.findViewById(R.id.pages_text);
+        TextView saleLoc_text=(TextView) view.findViewById(R.id.saleLoc_text);
+        TextView cond_text=(TextView) view.findViewById(R.id.cond_text);
+        TextView date_text=(TextView) view.findViewById(R.id.date_text);
+        ImageView bookPic_iv=(ImageView) view.findViewById(R.id.bookPic_iv);
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
-        if(username.size()>1){
-            tv_username.setText("Username:"+" "+username.get(i));
-        }
-        else tv_username.setText("Username:"+" "+username.get(0));
-        tv_bookName.setText("Book Name:"+" "+book_name.get(i));
-        tv_Rating.setText("rating:"+" "+ratings.get(i)+"/"+"5");
-        tv_ReviewContent.setText(reviewContents.get(i));
+        bookName_text.setText("Book Name- "+book_name.get(i));
+        pages_text.setText("Pages- "+String.valueOf(pages.get(i)));
+        cond_text.setText("Condition- "+condition[conditionList.get(i)]);
+        saleLoc_text.setText("Where- "+location.get(i));
+        date_text.setText("Published- "+dateList.get(i));
         if(!hasImage.get(i).equals("Null")) {
             StorageReference imageRef= storageReference.child(hasImage.get(i));
             final long ONE_MEGABYTE = 3150* 3150;
@@ -84,7 +89,7 @@ public class CustomAdapter extends BaseAdapter {
                 @Override
                 public void onSuccess(byte[] bytes) {
                     bMap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                    iv_reviewPic.setImageBitmap(bMap);
+                    bookPic_iv.setImageBitmap(bMap);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -94,7 +99,10 @@ public class CustomAdapter extends BaseAdapter {
             });
 
         }
+
+
+
+
         return view;
     }
-
 }
