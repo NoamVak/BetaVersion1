@@ -41,6 +41,17 @@
             android:layout_height="20dp" />
 
         <TextView
+            android:id="@+id/price_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <TextView
             android:id="@+id/saleLoc_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

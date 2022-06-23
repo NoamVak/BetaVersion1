@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,13 +32,14 @@ public class CustomAdapterShop extends BaseAdapter {
     ArrayList<String> location=new ArrayList<>();
     ArrayList<String> dateList=new ArrayList<>();
     ArrayList<String> hasImage= new ArrayList<>();
+    ArrayList<Integer> price=new ArrayList<>();
     Bitmap bMap;
     FirebaseStorage storage;
     StorageReference storageReference;
     LayoutInflater inflater;
 
     public CustomAdapterShop(Context applicationContext,ArrayList<String> book_name,ArrayList<Integer> pages,ArrayList<Integer> conditionList
-            ,ArrayList<String> location, ArrayList<String> dateList,ArrayList<String> hasImage){
+            ,ArrayList<String> location, ArrayList<String> dateList,ArrayList<String> hasImage,ArrayList<Integer> price){
         this.context=applicationContext;
         this.book_name=book_name;
         this.pages=pages;
@@ -44,6 +47,7 @@ public class CustomAdapterShop extends BaseAdapter {
         this.location=location;
         this.dateList=dateList;
         this.hasImage=hasImage;
+        this.price=price;
         inflater= (LayoutInflater.from(applicationContext));
     }
 
@@ -68,6 +72,7 @@ public class CustomAdapterShop extends BaseAdapter {
         view= inflater.inflate(R.layout.custom_lv_layout2,null);
         TextView bookName_text=(TextView) view.findViewById(R.id.bookName_text);
         TextView pages_text=(TextView) view.findViewById(R.id.pages_text);
+        TextView price_text=(TextView) view.findViewById(R.id.price_text);
         TextView saleLoc_text=(TextView) view.findViewById(R.id.saleLoc_text);
         TextView cond_text=(TextView) view.findViewById(R.id.cond_text);
         TextView date_text=(TextView) view.findViewById(R.id.date_text);
@@ -81,6 +86,7 @@ public class CustomAdapterShop extends BaseAdapter {
         cond_text.setText("Condition- "+condition[conditionList.get(i)]);
         saleLoc_text.setText("Where- "+location.get(i));
         date_text.setText("Published- "+dateList.get(i));
+        price_text.setText("Price- "+price.get(i)+"₪");
         if(!hasImage.get(i).equals("Null")) {
             StorageReference imageRef = storageReference.child(hasImage.get(i));
             final long ONE_MEGABYTE = 3150 * 3150;

@@ -1,6 +1,5 @@
 package com.example.betaversion1;
 
-import static com.example.betaversion1.FBref.refAuth;
 import static com.example.betaversion1.FBref.refBooks;
 import static com.example.betaversion1.FBref.refSales;
 import static com.example.betaversion1.FBref.refUsers;
@@ -9,19 +8,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -30,16 +30,20 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
     ArrayList<Sales> saleValues=new ArrayList<>();
     ArrayList<String> bookList=new ArrayList<>();
     ArrayList<Books> bookValues= new ArrayList<>();
-    ArrayList<String> userList=new ArrayList<String>();
-    ArrayList<Users> userValues=new ArrayList<Users>();
+    ArrayList<String> userList=new ArrayList<>();
+    ArrayList<Users> userValues=new ArrayList<>();
     ArrayList<String> book_name=new ArrayList<>();
     ArrayList<Integer> pages=new ArrayList<>();
     ArrayList<Integer> conditionList= new ArrayList<>();
     ArrayList<String> location=new ArrayList<>();
     ArrayList<String> dateList=new ArrayList<>();
     ArrayList<String> hasImage= new ArrayList<>();
+    ArrayList<Integer> price= new ArrayList<>();
+    String[] genre={"Genre","Thriller","Horror","Romance","Fantasy","Children book","Fiction","Sci-Fi","Graphic Novel","Manga"};
+    String[] ageGroup={"Age Group","Kids","Teens","Adults"};
 
     ListView shop_ListView;
+    TextView tv_bookName,tv_Author,tv_pages,tv_AgeGroup,tv_Genre,tv_PhoneNum,tv_info;
     String str1,bookId,image;
 
     @Override
@@ -47,7 +51,13 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
         shop_ListView=(ListView) findViewById(R.id.shop_ListView);
-
+        tv_bookName=(TextView) findViewById(R.id.tv_bookName);
+        tv_Author=(TextView) findViewById(R.id.tv_Author);
+        tv_pages=(TextView) findViewById(R.id.tv_pages);
+        tv_AgeGroup=(TextView) findViewById(R.id.tv_AgeGroup);
+        tv_Genre=(TextView) findViewById(R.id.tv_Genre);
+        tv_PhoneNum=(TextView) findViewById(R.id.tv_PhoneNum);
+        tv_info=(TextView) findViewById(R.id.tv_info);
 
         readUserInfo();
 
@@ -66,12 +76,14 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
             location.clear();
             dateList.clear();
             hasImage.clear();
+            price.clear();
             for(int i=0;i<saleValues.size();i++){
                 bookId=saleValues.get(i).getBookId();
                 int bIndex=bookList.indexOf(bookId);
                 book_name.add(bookValues.get(bIndex).getName());
                 pages.add(bookValues.get(bIndex).getPages());
                 conditionList.add(saleValues.get(i).getCondition());
+                price.add(saleValues.get(i).getPrice());
                 if(!saleValues.get(i).getAddress().equals(""))
                     location.add(saleValues.get(i).getCity()+" - "+saleValues.get(i).getAddress());
                 else location.add(saleValues.get(i).getCity());
@@ -84,7 +96,8 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
                     hasImage.add(image);
                 }
             }
-            CustomAdapterShop customAdp= new CustomAdapterShop(getApplicationContext(),book_name,pages,conditionList,location,dateList,hasImage);
+            CustomAdapterShop customAdp= new CustomAdapterShop(getApplicationContext(),book_name,pages,conditionList,location,dateList
+                    ,hasImage,price);
             shop_ListView.setAdapter(customAdp);
             customAdp.notifyDataSetChanged();
         }
@@ -92,6 +105,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
 
 
     private void readSaleInfo(){
+        Query query= refSales.orderByChild("status").equalTo(true);
         ValueEventListener saleListener=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dS) {
@@ -110,7 +124,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
 
             }
         };
-        refSales.addValueEventListener(saleListener);
+        query.addValueEventListener(saleListener);
     }
 
     private void readBookInfo(){
@@ -175,9 +189,20 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
     }
 
 
+
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+        int bIndex=bookList.indexOf(saleValues.get(i).getBookId());
+        Books book=bookValues.get(bIndex);
+        tv_bookName.setText("Book Name- "+book.getName());
+        tv_Author.setText("Written by- "+book.getAuthor());
+        tv_pages.setText(String.valueOf("Pages- "+book.getPages()));
+        tv_AgeGroup.setText("Recommended for- "+ageGroup[book.getAgeGroup()]);
+        tv_Genre.setText("Genre- "+genre[book.getGenre()]);
+        tv_PhoneNum.setText("Seller phone- "+saleValues.get(i).getPhoneNum());
+        if(saleValues.get(i).getInfo().equals(""))
+            tv_info.setText("no additional information");
+        else tv_info.setText("info- "+saleValues.get(i).getInfo());
 
     }
 }
