@@ -174,6 +174,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
         return true;
     }
 
+
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
