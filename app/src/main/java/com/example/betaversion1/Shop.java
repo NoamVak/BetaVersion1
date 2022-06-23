@@ -1,5 +1,6 @@
 package com.example.betaversion1;
 
+import static com.example.betaversion1.FBref.refAuth;
 import static com.example.betaversion1.FBref.refBooks;
 import static com.example.betaversion1.FBref.refSales;
 import static com.example.betaversion1.FBref.refUsers;
@@ -7,7 +8,14 @@ import static com.example.betaversion1.FBref.refUsers;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -17,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Shop extends AppCompatActivity {
+public class Shop extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ArrayList<String> saleList=new ArrayList<>();
     ArrayList<Sales> saleValues=new ArrayList<>();
     ArrayList<String> bookList=new ArrayList<>();
@@ -42,6 +50,12 @@ public class Shop extends AppCompatActivity {
 
 
         readUserInfo();
+
+        shop_ListView.setOnItemClickListener(this);
+        shop_ListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+
+
     }
 
     private void displaySales(){
@@ -142,6 +156,27 @@ public class Shop extends AppCompatActivity {
             }
         };
         refUsers.addValueEventListener(userListener);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        String st=item.getTitle().toString();
+        if(st.equals("Home Screen")){
+            Intent si=new Intent(Shop.this,MainActivity.class);
+            startActivity(si);
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
 
     }
 }

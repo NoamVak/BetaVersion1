@@ -208,6 +208,9 @@ public class Profile extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+
+        menu.add(0,0,150,"Manage Sales");
+
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item){
@@ -217,16 +220,11 @@ public class Profile extends AppCompatActivity {
             startActivity(si);
         }
 
-        if(st.equals("Sign Out")){
-            refAuth.signOut();
-            SharedPreferences settings=getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
-            SharedPreferences.Editor editor=settings.edit();
-            editor.putBoolean("stayConnect",false);
-            editor.commit();
-            Intent si=new Intent (Profile.this,SignUp.class);
+        if(st.equals("Manage Sales")){
+            Intent si=new Intent(Profile.this,ManageUserSales.class);
             startActivity(si);
-            finish();
         }
+
         return true;
     }
 

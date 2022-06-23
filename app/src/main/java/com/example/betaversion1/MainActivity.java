@@ -185,6 +185,9 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+
+        menu.add(0,0,150,"Sign Out");
+
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item){

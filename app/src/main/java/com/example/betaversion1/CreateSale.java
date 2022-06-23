@@ -1,5 +1,6 @@
 package com.example.betaversion1;
 
+import static com.example.betaversion1.FBref.refAuth;
 import static com.example.betaversion1.FBref.refBooks;
 import static com.example.betaversion1.FBref.refSales;
 import static com.example.betaversion1.FBref.refUsers;
@@ -13,12 +14,15 @@ import androidx.core.content.FileProvider;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -314,6 +318,22 @@ public class CreateSale extends AppCompatActivity implements AdapterView.OnItemS
             }
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item){
+        String st=item.getTitle().toString();
+        if(st.equals("Home Screen")){
+            Intent si=new Intent(CreateSale.this,MainActivity.class);
+            startActivity(si);
+            finish();
+        }
+
+        return true;
     }
 
 
