@@ -59,7 +59,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
         tv_PhoneNum=(TextView) findViewById(R.id.tv_PhoneNum);
         tv_info=(TextView) findViewById(R.id.tv_info);
 
-        readUserInfo();
+        readBookInfo();
 
         shop_ListView.setOnItemClickListener(this);
         shop_ListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -150,7 +150,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
         refBooks.addValueEventListener(bookListener);
     }
 
-    private void readUserInfo() {
+    /*private void readUserInfo() {
         ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dS) {
@@ -171,7 +171,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
         };
         refUsers.addValueEventListener(userListener);
 
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -183,6 +183,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
         if(st.equals("Home Screen")){
             Intent si=new Intent(Shop.this,MainActivity.class);
             startActivity(si);
+            finish();
         }
 
         return true;

@@ -218,6 +218,7 @@ public class Profile extends AppCompatActivity {
         if(st.equals("Home Screen")){
             Intent si=new Intent(Profile.this,MainActivity.class);
             startActivity(si);
+            finish();
         }
 
         if(st.equals("Manage Sales")){
