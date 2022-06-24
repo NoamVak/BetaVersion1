@@ -12,13 +12,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="742957bf-b677-4466-b2d5-5ebe21288541" name="Default Changelist" comment="fixed image bug">
-      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
+    <list default="true" id="742957bf-b677-4466-b2d5-5ebe21288541" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/CustomAdapterShop.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/CustomAdapterShop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/ManageUserSales.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/ManageUserSales.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/Sales.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/Sales.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/betaversion1/Shop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_manage_user_sales.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_manage_user_sales.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/custom_lv_layout2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/custom_lv_layout2.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -393,7 +393,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656012655854</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="need to continue">
+      <created>1656104736596</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1656104736596</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -417,13 +424,13 @@
     <MESSAGE value="Review screen xml finished&#10;need to continue" />
     <MESSAGE value="Camera doesn't work&#10;Gallery works&#10;need to work on Review Section" />
     <MESSAGE value="Camera works&#10;need to continue" />
-    <MESSAGE value="need to continue" />
     <MESSAGE value="Sale Activity finished&#10;Review Activity finished&#10;need to continue" />
     <MESSAGE value="need to work on custom array adapter" />
     <MESSAGE value="Home screen custom adapter works" />
     <MESSAGE value="Profile custom adapter works" />
     <MESSAGE value="fixed the on start bug custom adapter works" />
     <MESSAGE value="fixed image bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed image bug" />
+    <MESSAGE value="need to continue" />
+    <option name="LAST_COMMIT_MESSAGE" value="need to continue" />
   </component>
 </project>

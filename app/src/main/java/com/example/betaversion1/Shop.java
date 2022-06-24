@@ -39,6 +39,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
     ArrayList<String> dateList=new ArrayList<>();
     ArrayList<String> hasImage= new ArrayList<>();
     ArrayList<Integer> price= new ArrayList<>();
+    ArrayList<Boolean> status=new ArrayList<>();
     String[] genre={"Genre","Thriller","Horror","Romance","Fantasy","Children book","Fiction","Sci-Fi","Graphic Novel","Manga"};
     String[] ageGroup={"Age Group","Kids","Teens","Adults"};
 
@@ -77,6 +78,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
             dateList.clear();
             hasImage.clear();
             price.clear();
+            status.clear();
             for(int i=0;i<saleValues.size();i++){
                 bookId=saleValues.get(i).getBookId();
                 int bIndex=bookList.indexOf(bookId);
@@ -84,6 +86,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
                 pages.add(bookValues.get(bIndex).getPages());
                 conditionList.add(saleValues.get(i).getCondition());
                 price.add(saleValues.get(i).getPrice());
+                status.add(saleValues.get(i).getStatus());
                 if(!saleValues.get(i).getAddress().equals(""))
                     location.add(saleValues.get(i).getCity()+" - "+saleValues.get(i).getAddress());
                 else location.add(saleValues.get(i).getCity());
@@ -97,7 +100,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
                 }
             }
             CustomAdapterShop customAdp= new CustomAdapterShop(getApplicationContext(),book_name,pages,conditionList,location,dateList
-                    ,hasImage,price);
+                    ,hasImage,price,status);
             shop_ListView.setAdapter(customAdp);
             customAdp.notifyDataSetChanged();
         }

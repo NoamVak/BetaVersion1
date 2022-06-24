@@ -47,6 +47,14 @@ public class Sales {
         return city;
     }
 
+    public boolean getStatus(){
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     public void setCity(String city) {
         this.city = city;
     }
@@ -58,6 +66,7 @@ public class Sales {
     public void setAddress(String address) {
         this.address = address;
     }
+
     public String getDate() {
         return date;
     }
@@ -85,4 +94,6 @@ public class Sales {
     public String getUserId() {
         return userId;
     }
+
+
 }

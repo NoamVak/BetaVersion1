@@ -4,8 +4,10 @@ import static com.example.betaversion1.FBref.refBooks;
 import static com.example.betaversion1.FBref.refSales;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ManageUserSales extends AppCompatActivity implements AdapterView.OnItemClickListener{
+    AlertDialog.Builder adb;
+
     ArrayList<String> saleList=new ArrayList<>();
     ArrayList<Sales> saleValues=new ArrayList<>();
     ArrayList<String> bookList=new ArrayList<>();
@@ -32,6 +36,7 @@ public class ManageUserSales extends AppCompatActivity implements AdapterView.On
     ArrayList<String> dateList=new ArrayList<>();
     ArrayList<String> hasImage= new ArrayList<>();
     ArrayList<Integer> price= new ArrayList<>();
+    ArrayList<Boolean> status=new ArrayList<>();
 
     String uid,str1,bookId,image;
     FirebaseUser user;
@@ -65,6 +70,7 @@ public class ManageUserSales extends AppCompatActivity implements AdapterView.On
             dateList.clear();
             hasImage.clear();
             price.clear();
+            status.clear();
             for(int i=0;i<saleValues.size();i++){
                 bookId=saleValues.get(i).getBookId();
                 int bIndex=bookList.indexOf(bookId);
@@ -72,6 +78,7 @@ public class ManageUserSales extends AppCompatActivity implements AdapterView.On
                 pages.add(bookValues.get(bIndex).getPages());
                 conditionList.add(saleValues.get(i).getCondition());
                 price.add(saleValues.get(i).getPrice());
+                status.add(saleValues.get(i).getStatus());
                 if(!saleValues.get(i).getAddress().equals(""))
                     location.add(saleValues.get(i).getCity()+" - "+saleValues.get(i).getAddress());
                 else location.add(saleValues.get(i).getCity());
@@ -85,7 +92,7 @@ public class ManageUserSales extends AppCompatActivity implements AdapterView.On
                 }
             }
             CustomAdapterShop customAdp= new CustomAdapterShop(getApplicationContext(),book_name,pages,conditionList,location,dateList
-                    ,hasImage,price);
+                    ,hasImage,price,status);
             lv_mngSales.setAdapter(customAdp);
             customAdp.notifyDataSetChanged();
         }
@@ -139,6 +146,26 @@ public class ManageUserSales extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+        adb= new AlertDialog.Builder(this);
+        adb.setTitle("Change Sale status");
+        adb.setMessage("Make sale inactive?");
+        adb.setPositiveButton("Active", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                Sales tmpSale=saleValues.get(i);
+                tmpSale.setStatus(true);
+                refSales.child(tmpSale.getDate()).setValue(tmpSale);
+            }
+        });
+        adb.setNegativeButton("Inactive", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                Sales tmpSale=saleValues.get(i);
+                tmpSale.setStatus(false);
+                refSales.child(tmpSale.getDate()).setValue(tmpSale);
+            }
+        });
+        AlertDialog ad=adb.create();
+        ad.show();
     }
 }

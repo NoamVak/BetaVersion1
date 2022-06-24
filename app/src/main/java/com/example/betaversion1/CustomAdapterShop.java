@@ -3,6 +3,7 @@ package com.example.betaversion1;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -33,13 +35,14 @@ public class CustomAdapterShop extends BaseAdapter {
     ArrayList<String> dateList=new ArrayList<>();
     ArrayList<String> hasImage= new ArrayList<>();
     ArrayList<Integer> price=new ArrayList<>();
+    ArrayList<Boolean> status=new ArrayList<>();
     Bitmap bMap;
     FirebaseStorage storage;
     StorageReference storageReference;
     LayoutInflater inflater;
 
     public CustomAdapterShop(Context applicationContext,ArrayList<String> book_name,ArrayList<Integer> pages,ArrayList<Integer> conditionList
-            ,ArrayList<String> location, ArrayList<String> dateList,ArrayList<String> hasImage,ArrayList<Integer> price){
+            ,ArrayList<String> location, ArrayList<String> dateList,ArrayList<String> hasImage,ArrayList<Integer> price,ArrayList<Boolean> status){
         this.context=applicationContext;
         this.book_name=book_name;
         this.pages=pages;
@@ -48,6 +51,7 @@ public class CustomAdapterShop extends BaseAdapter {
         this.dateList=dateList;
         this.hasImage=hasImage;
         this.price=price;
+        this.status=status;
         inflater= (LayoutInflater.from(applicationContext));
     }
 
@@ -76,6 +80,7 @@ public class CustomAdapterShop extends BaseAdapter {
         TextView saleLoc_text=(TextView) view.findViewById(R.id.saleLoc_text);
         TextView cond_text=(TextView) view.findViewById(R.id.cond_text);
         TextView date_text=(TextView) view.findViewById(R.id.date_text);
+        TextView status_text=(TextView) view.findViewById(R.id.status_text);
         ImageView bookPic_iv=(ImageView) view.findViewById(R.id.bookPic_iv);
 
         storage = FirebaseStorage.getInstance();
@@ -87,6 +92,14 @@ public class CustomAdapterShop extends BaseAdapter {
         saleLoc_text.setText("Where- "+location.get(i));
         date_text.setText("Published- "+dateList.get(i));
         price_text.setText("Price- "+price.get(i)+"₪");
+        if(status.get(i)){
+            status_text.setText("active");
+            status_text.setTextColor(Color.GREEN);
+        }
+        else{
+            status_text.setText("inactive");
+            status_text.setTextColor(Color.RED);
+        }
         if(!hasImage.get(i).equals("Null")) {
             StorageReference imageRef = storageReference.child(hasImage.get(i));
             final long ONE_MEGABYTE = 3150 * 3150;
