@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,7 +39,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     String uid,str1,bookId,bookImage;
     ListView lv_AllReviews;
     ArrayList<String> reviewList=new ArrayList<>();
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity  {
 
         lv_AllReviews=(ListView)findViewById(R.id.lv_AllReviews);
 
+        lv_AllReviews.setOnItemClickListener(this);
+        lv_AllReviews.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         readUserInfo();
 
@@ -211,8 +214,8 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-
-
-
+    }
 }
