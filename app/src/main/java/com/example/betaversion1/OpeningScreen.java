@@ -36,6 +36,7 @@ public class OpeningScreen extends AppCompatActivity {
     }
 
     public void Credits(View view) {
-
+        Intent si = new Intent(OpeningScreen.this, Credits.class);
+        startActivity(si);
     }
 }
