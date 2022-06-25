@@ -43,6 +43,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
     ArrayList<Integer> price= new ArrayList<>();
     ArrayList<Boolean> status=new ArrayList<>();
     ArrayList<Integer> bIndexArr=new ArrayList<>();
+    ArrayList<Integer> sIndexArr=new ArrayList<>();
     String[] genre={"Genre","Thriller","Horror","Romance","Fantasy","Children book","Fiction","Sci-Fi","Graphic Novel","Manga"};
     String[] ageGroup={"Age Group","Kids","Teens","Adults"};
     String[] filter={"Filter Sales","With image","without image","For Kids","For Teens","For Adults"};
@@ -97,11 +98,13 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
             price.clear();
             status.clear();
             bIndexArr.clear();
+            sIndexArr.clear();
             for(int i=0;i<saleValues.size();i++){
                 if(saleValues.get(i).getStatus()) {
                     bookId = saleValues.get(i).getBookId();
                     int bIndex = bookList.indexOf(bookId);
                     if (bIndex != -1) {
+                        sIndexArr.add(i);
                         bIndexArr.add(bIndex);
                         book_name.add(bookValues.get(bIndex).getName());
                         pages.add(bookValues.get(bIndex).getPages());
@@ -363,10 +366,10 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
         tv_pages.setText("Pages- "+String.valueOf(book.getPages()));
         tv_AgeGroup.setText("Recommended for- "+ageGroup[book.getAgeGroup()]);
         tv_Genre.setText("Genre- "+genre[book.getGenre()]);
-        tv_PhoneNum.setText("Seller phone- "+saleValues.get(i).getPhoneNum());
-        if(saleValues.get(i).getInfo().equals(""))
+        tv_PhoneNum.setText("Seller phone- "+saleValues.get(sIndexArr.get(i)).getPhoneNum());
+        if(saleValues.get(sIndexArr.get(i)).getInfo().equals(""))
             tv_info.setText("no additional information");
-        else tv_info.setText("info- "+saleValues.get(i).getInfo());
+        else tv_info.setText("info- "+saleValues.get(sIndexArr.get(i)).getInfo());
 
     }
 
