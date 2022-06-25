@@ -39,7 +39,8 @@ public class Profile extends AppCompatActivity {
     ListView lv_userReviews;
     ImageView profilePic;
     TextView tvUsername,tvBio;
-    FirebaseUser user;
+    FirebaseUser fbUser;
+    Users user;
     String str1,uid,username,pfpPath,bookId,bookImage;
     ArrayList<String> reviewList=new ArrayList<>();
     ArrayList<Reviews> reviewValues=new ArrayList<>();
@@ -63,10 +64,10 @@ public class Profile extends AppCompatActivity {
         tvBio=(TextView)findViewById(R.id.tvBio);
         lv_userReviews=(ListView)findViewById(R.id.lv_userReviews);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
+        fbUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (fbUser != null) {
             // Name, getEmail or etc
-            uid = user.getUid();
+            uid = fbUser.getUid();
         }
 
         storage= FirebaseStorage.getInstance();
@@ -150,26 +151,21 @@ public class Profile extends AppCompatActivity {
     }
 
     private void readUserInfo(){
+        Query query= refUsers.orderByChild("uid").equalTo(uid);
         ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dS) {
-                userList.clear();
-                userValues.clear();
                 for(DataSnapshot data : dS.getChildren()){
-                    str1= (String) data.getKey();
-                    Users userTmp = data.getValue(Users.class);
-                    userValues.add(userTmp);
-                    userList.add(str1);
+                    user = data.getValue(Users.class);
                 }
-                int index=userList.indexOf(uid);
-                username=userValues.get(index).getName();
+                username=user.getName();
                 tvUsername.setText(username);
-                String bio=userValues.get(index).getBio();
+                String bio=user.getBio();
                 if(!bio.equals("Null"))
-                    tvBio.setText(userValues.get(index).getBio());
+                    tvBio.setText(user.getBio());
                 else tvBio.setText("");
-                if(!userValues.get(index).getImage().equals("Null")) {
-                    pfpPath = userValues.get(index).getImage();
+                if(!user.getImage().equals("Null")) {
+                    pfpPath = user.getImage();
                     downloadUserPfp(pfpPath);
                 }
                 readBookInfo();
@@ -181,7 +177,7 @@ public class Profile extends AppCompatActivity {
 
             }
         };
-        refUsers.addValueEventListener(userListener);
+        query.addValueEventListener(userListener);
 
     }
 
@@ -216,8 +212,6 @@ public class Profile extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         String st=item.getTitle().toString();
         if(st.equals("Home Screen")){
-            Intent si=new Intent(Profile.this,MainActivity.class);
-            startActivity(si);
             finish();
         }
 

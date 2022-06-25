@@ -348,8 +348,6 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
     public boolean onOptionsItemSelected(MenuItem item){
         String st=item.getTitle().toString();
         if(st.equals("Home Screen")){
-            Intent si=new Intent(Shop.this,MainActivity.class);
-            startActivity(si);
             finish();
         }
 

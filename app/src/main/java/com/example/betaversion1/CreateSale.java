@@ -328,8 +328,6 @@ public class CreateSale extends AppCompatActivity implements AdapterView.OnItemS
     public boolean onOptionsItemSelected(MenuItem item){
         String st=item.getTitle().toString();
         if(st.equals("Home Screen")){
-            Intent si=new Intent(CreateSale.this,MainActivity.class);
-            startActivity(si);
             finish();
         }
 
