@@ -42,6 +42,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
     ArrayList<String> hasImage= new ArrayList<>();
     ArrayList<Integer> price= new ArrayList<>();
     ArrayList<Boolean> status=new ArrayList<>();
+    ArrayList<Integer> bIndexArr=new ArrayList<>();
     String[] genre={"Genre","Thriller","Horror","Romance","Fantasy","Children book","Fiction","Sci-Fi","Graphic Novel","Manga"};
     String[] ageGroup={"Age Group","Kids","Teens","Adults"};
     String[] filter={"Filter Sales","With image","without image","For Kids","For Teens","For Adults"};
@@ -95,11 +96,13 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
             hasImage.clear();
             price.clear();
             status.clear();
+            bIndexArr.clear();
             for(int i=0;i<saleValues.size();i++){
                 if(saleValues.get(i).getStatus()) {
                     bookId = saleValues.get(i).getBookId();
                     int bIndex = bookList.indexOf(bookId);
                     if (bIndex != -1) {
+                        bIndexArr.add(bIndex);
                         book_name.add(bookValues.get(bIndex).getName());
                         pages.add(bookValues.get(bIndex).getPages());
                         conditionList.add(saleValues.get(i).getCondition());
@@ -354,8 +357,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        int bIndex=bookList.indexOf(saleValues.get(i).getBookId());
-        Books book=bookValues.get(bIndex);
+        Books book=bookValues.get(bIndexArr.get(i));
         tv_bookName.setText("Book Name- "+book.getName());
         tv_Author.setText("Written by- "+book.getAuthor());
         tv_pages.setText("Pages- "+String.valueOf(book.getPages()));
