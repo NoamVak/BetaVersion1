@@ -1,6 +1,5 @@
 package com.example.betaversion1;
 
-import static com.example.betaversion1.FBref.refAuth;
 import static com.example.betaversion1.FBref.refBooks;
 import static com.example.betaversion1.FBref.refReviews;
 import static com.example.betaversion1.FBref.refUsers;
@@ -9,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -46,8 +44,6 @@ public class Profile extends AppCompatActivity {
     ArrayList<Reviews> reviewValues=new ArrayList<>();
     ArrayList<String> bookList=new ArrayList<>();
     ArrayList<Books> bookValues= new ArrayList<>();
-    ArrayList<String> userList=new ArrayList<String>();
-    ArrayList<Users> userValues=new ArrayList<Users>();
     ArrayList<String> book_name=new ArrayList<>();
     ArrayList<String> ratings=new ArrayList<>();
     ArrayList<String> reviewContents=new ArrayList<>();

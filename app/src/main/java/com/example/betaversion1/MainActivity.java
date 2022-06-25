@@ -7,8 +7,11 @@ import static com.example.betaversion1.FBref.refSales;
 import static com.example.betaversion1.FBref.refUsers;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -39,7 +42,9 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener {
+    AlertDialog.Builder adb;
+
     String uid,str1,bookId,bookImage;
     ListView lv_AllReviews;
     ArrayList<String> reviewList=new ArrayList<>();
@@ -54,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayList<String> reviewContents=new ArrayList<>();
     ArrayList<String> imagePath=new ArrayList<>();
 
+    FirebaseUser fbUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +69,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         lv_AllReviews=(ListView)findViewById(R.id.lv_AllReviews);
 
         lv_AllReviews.setOnItemClickListener(this);
+        lv_AllReviews.setOnItemLongClickListener(this);
         lv_AllReviews.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+        fbUser = FirebaseAuth.getInstance().getCurrentUser();
 
         readUserInfo();
 
@@ -220,5 +230,36 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Intent si=new Intent(MainActivity.this,ViewBook.class);
         si.putExtra("bookId",bookId);
         startActivity(si);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        String newUid=reviewValues.get(i).getUid();
+        adb= new AlertDialog.Builder(this);
+        adb.setTitle("View other user");
+        adb.setMessage("Do you want to visit this user's profile?");
+        adb.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                if(!newUid.equals(fbUser.getUid())){
+                    Intent si=new Intent(MainActivity.this,OtherProfile.class);
+                    si.putExtra("UserId",newUid);
+                    startActivity(si);
+                }
+                else{
+                    Toast.makeText(MainActivity.this,"It's your account!",Toast.LENGTH_SHORT).show();
+                    dialogInterface.cancel();
+                }
+            }
+        });
+        adb.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        AlertDialog ad=adb.create();
+        ad.show();
+        return true;
     }
 }
