@@ -216,6 +216,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+        bookId=reviewList.get(i);
+        Intent si=new Intent(MainActivity.this,ViewBook.class);
+        si.putExtra("bookId",bookId);
+        startActivity(si);
     }
 }

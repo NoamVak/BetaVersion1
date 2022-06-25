@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BetaVersion1">
         <activity
+            android:name=".ViewBook"
+            android:exported="false" />
+        <activity
             android:name=".Credits"
             android:exported="false" />
         <activity
