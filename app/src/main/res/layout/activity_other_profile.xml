@@ -8,6 +8,7 @@
     tools:context=".OtherProfile">
 
     <TextView
+        android:id="@+id/title_tv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"
@@ -62,6 +63,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/subTitle_tv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
