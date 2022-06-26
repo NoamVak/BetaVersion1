@@ -22,6 +22,7 @@
             android:id="@+id/bookName_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -33,6 +34,7 @@
             android:id="@+id/pages_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -44,6 +46,7 @@
             android:id="@+id/price_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -55,6 +58,7 @@
             android:id="@+id/saleLoc_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -66,6 +70,7 @@
             android:id="@+id/cond_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -77,6 +82,7 @@
             android:id="@+id/date_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
