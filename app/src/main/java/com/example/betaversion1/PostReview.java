@@ -108,7 +108,7 @@ public class PostReview extends AppCompatActivity implements AdapterView.OnItemS
     public void UploadBookPic(View view) {
         adb= new AlertDialog.Builder(this);
 
-        adb.setTitle("Change your profile picture");
+        adb.setTitle("Add a Book Picture");
         adb.setItems(decision, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

@@ -32,8 +32,6 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
     ArrayList<Sales> saleValues=new ArrayList<>();
     ArrayList<String> bookList=new ArrayList<>();
     ArrayList<Books> bookValues= new ArrayList<>();
-    ArrayList<String> userList=new ArrayList<>();
-    ArrayList<Users> userValues=new ArrayList<>();
     ArrayList<String> book_name=new ArrayList<>();
     ArrayList<Integer> pages=new ArrayList<>();
     ArrayList<Integer> conditionList= new ArrayList<>();
@@ -46,7 +44,7 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
     ArrayList<Integer> sIndexArr=new ArrayList<>();
     String[] genre={"Genre","Thriller","Horror","Romance","Fantasy","Children book","Fiction","Sci-Fi","Graphic Novel","Manga"};
     String[] ageGroup={"Age Group","Kids","Teens","Adults"};
-    String[] filter={"Filter Sales","With image","without image","For Kids","For Teens","For Adults"};
+    String[] filter={"Filter Sales","For Kids","For Teens","For Adults"};
     String[] sort={"Sort Sales","By Price","By Condition"};
 
     Spinner saleSort,saleFilter;
@@ -385,13 +383,13 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
                 case 0:
                     readBookInfo(sIndex);
                     break;
-                case 3:
+                case 1:
                     bookForKids(sIndex);
                     break;
-                case 4:
+                case 2:
                     bookForTeens(sIndex);
                     break;
-                case 5:
+                case 3:
                     bookForAdults(sIndex);
                     break;
             }
@@ -401,13 +399,13 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
                 case 0:
                     readBookInfo(sIndex);
                     break;
-                case 3:
+                case 1:
                     bookForKids(sIndex);
                     break;
-                case 4:
+                case 2:
                     bookForTeens(sIndex);
                     break;
-                case 5:
+                case 3:
                     bookForAdults(sIndex);
                     break;
             }
@@ -417,13 +415,13 @@ public class Shop extends AppCompatActivity implements AdapterView.OnItemClickLi
                 case 0:
                     readBookInfo(sIndex);
                     break;
-                case 3:
+                case 1:
                     bookForKids(sIndex);
                     break;
-                case 4:
+                case 2:
                     bookForTeens(sIndex);
                     break;
-                case 5:
+                case 3:
                     bookForAdults(sIndex);
                     break;
             }
